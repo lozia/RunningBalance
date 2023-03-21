@@ -1,0 +1,43 @@
+openapi: 3.0.3
+info:
+  title: myPost API
+  description: myPost API can be used for managing posts the user sent
+paths:
+  /posts:
+    get:
+    operationId: retriveCourse
+    parameters:
+      - name: user_account
+        in: path
+        required: true
+        schema:
+          type: string
+    responses: 
+      "200":
+        description: Return posts
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Post'
+      "401":
+        description: Authentication Error
+        content:
+          application/json:
+            schema:
+              type: object
+conponents:
+  schemas:
+    Post:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Post title
+          example: today's diary 
+        content:
+          type: string
+          description: Post text content
+          example: Nice day!
+        image:
+          type: Image
+          description: Post image content
