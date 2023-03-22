@@ -2,9 +2,32 @@ openapi: 3.0.0
 info:
   title: myPost API
   version: 1.0.0
-  description: myPost API can be used for managing posts the user sent
+  description: |-
+    Our project is a web-based application that allows users to create their own blogs and share their posts with the world. The application has a social media component, allowing users to follow other bloggers and see their posts in their feed. Users can also like, comment, and share posts with their followers. The application has a search feature that allows users to search for other bloggers or posts based on keywords. The application also allows people to use the chat function to send private messages to other users.
+    
+    Team Members:
+      - [Zhiqing Su su.zhiq@northeastern.edu](mailto:su.zhiq@northeastern.edu)
+      - [Xinyue Zhang zhang.xinyue12@northeastern.edu](mailto:zhang.xinyue12@northeastern.edu)
+      - [Dongsheng Cheng zhang.xinyue12@northeastern.edu](mailto:zhang.xinyue12@northeastern.edu)
+      - [Zongyao Li li.zongyao@northeastern.edu](mailto:li.zongyao@northeastern.edu)	       
 servers:
-  - url: https://example.com/api/v1
+  - url: https://github.com/neu-mis-info-6150-spring-2023/final-project-group-cyberworkers
+tags:
+  - name: users
+    description: Users that has activities
+    externalDocs:
+      description: Find out more
+      url: https://github.com/neu-mis-info-6150-spring-2023/final-project-group-cyberworkers
+  - name: blogs
+    description: Created by users
+    externalDocs:
+      description: Find out more
+      url: https://github.com/neu-mis-info-6150-spring-2023/final-project-group-cyberworkers
+  - name: chats
+    description: Chats created by users
+    externalDocs:
+      description: Find out more
+      url: https://github.com/neu-mis-info-6150-spring-2023/final-project-group-cyberworkers
 
 paths:
   /users:
@@ -52,14 +75,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/PersonalInfo"
+              $ref: "#/components/schemas/User"
       responses:
         "201":
           description: Personal information created successfully
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PersonalInfo"
+                $ref: "#/components/schemas/User"
         "400":
           description: Invalid input
         "401":
@@ -90,14 +113,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Post"
+              $ref: "#/components/schemas/Blog"
       responses:
         "201":
           description: Post created successfully
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Post"
+                $ref: "#/components/schemas/Blog"
         "400":
           description: Invalid input
         "401":
@@ -105,7 +128,6 @@ paths:
         "404":
           description: User not found
 
-paths:
   /users/{userId}/posts/{postId}:
     delete:
       summary: Delete a post
@@ -117,7 +139,7 @@ paths:
         '204':
           description: Post deleted successfully
         '404':
-          $ref: '#/components/responses/NotFound'
+          description: Blog not found
 
   /users/{userId}/following:
     post:
@@ -246,3 +268,4 @@ components:
           format: date-time
           description: Timestamp of when the chat message was created
           example: '2023-03-22T11:00:00Z'
+
