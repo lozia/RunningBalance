@@ -96,7 +96,7 @@ Request parameters:
     "user_id": "5678"
 }
 
-POST /users/{user_id}/unfollow - Allows a user to unfollow a blogger.
+DELETE /users/{user_id}/follow - Allows a user to unfollow a blogger.
 Request parameters:
 {
     "user_id": "1234",
