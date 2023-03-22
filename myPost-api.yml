@@ -1,43 +1,161 @@
-openapi: 3.0.3
+openapi: 3.0.0
 info:
   title: myPost API
+  version: 1.0.0
   description: myPost API can be used for managing posts the user sent
+servers:
+  - url: https://example.com/api/v1
+
 paths:
-  /posts:
-    get:
-    operationId: retriveCourse
-    parameters:
-      - name: user_account
-        in: path
+  /users:
+    post:
+      summary: Create user account
+      requestBody:
+        description: User object that needs to be added to the system
         required: true
-        schema:
-          type: string
-    responses: 
-      "200":
-        description: Return posts
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Post'
-      "401":
-        description: Authentication Error
+              $ref: "#/components/schemas/User"
+      responses:
+        "201":
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "400":
+          description: Invalid input
+        "409":
+          description: User already exists
+
+  /users/{userId}/personalinfo:
+    post:
+      summary: Create personal information for user
+      parameters:
+        - in: path
+          name: userId
+          description: ID of the user to update
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+        - in: header
+          name: Authorization
+          description: Access token to authenticate the request
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Personal information object that needs to be added to the user's profile
+        required: true
         content:
           application/json:
             schema:
-              type: object
-conponents:
-  schemas:
-    Post:
-      type: object
-      properties:
-        title:
-          type: string
-          description: Post title
-          example: today's diary 
+              $ref: "#/components/schemas/PersonalInfo"
+      responses:
+        "201":
+          description: Personal information created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PersonalInfo"
+        "400":
+          description: Invalid input
+        "401":
+          description: Unauthorized access
+        "404":
+          description: User not found
+
+  /users/{userId}/posts:
+    post:
+      summary: Create a new post for user
+      parameters:
+        - in: path
+          name: userId
+          description: ID of the user to create a post for
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+        - in: header
+          name: Authorization
+          description: Access token to authenticate the request
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Post object that needs to be added to the user's profile
+        required: true
         content:
-          type: string
-          description: Post text content
-          example: Nice day!
-        image:
-          type: Image
-          description: Post image content
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Post"
+      responses:
+        "201":
+          description: Post created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Post"
+        "400":
+          description: Invalid input
+        "401":
+          description: Unauthorized access
+        "404":
+          description: User not found
+
+paths:
+  /users/{userId}/posts/{postId}:
+    delete:
+      summary: Delete a post
+      tags: [Posts]
+      parameters:
+        - $ref: '#/components/parameters/userId'
+        - $ref: '#/components/parameters/postId'
+      responses:
+        '204':
+          description: Post deleted successfully
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /users/{userId}/following:
+    post:
+      summary: Follow a blogger by id
+      tags: [Followers]
+      parameters:
+        - $ref: '#/components/parameters/userId'
+      requestBody:
+        $ref: '#/components/requestBodies/FollowRequest'
+      responses:
+        '201':
+          description: User followed successfully
+        '400':
+          $ref: '#/components/responses/BadRequest'
+
+  /users/{userId}/following/{bloggerId}:
+    delete:
+      summary: Unfollow a blogger
+      tags: [Followers]
+      parameters:
+        - $ref: '#/components/parameters/userId'
+        - $ref: '#/components/parameters/bloggerId'
+      responses:
+        '204':
+          description: User unfollowed successfully
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /users/{userId}/chats:
+    post:
+      summary: Create a chat with another user
+      tags: [Chats]
+      parameters:
+        - $ref: '#/components/parameters/userId'
+      requestBody:
+        $ref: '#/components/requestBodies/ChatRequest'
+      responses:
+        '201':
+          $ref: '#/components/responses/ChatResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
