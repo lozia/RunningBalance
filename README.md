@@ -40,7 +40,7 @@ Our project is a web-based application that allows users to create their own blo
 <br>(Assigned to Zongyao Li)
 
 ## Object Model
-![](blog.drawio.png)
+![](blog.jpg)
 
 
 ## OpenAPI Specification
