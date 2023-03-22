@@ -159,3 +159,90 @@ paths:
           $ref: '#/components/responses/ChatResponse'
         '400':
           $ref: '#/components/responses/BadRequest'
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the user
+          example: 123
+        username:
+          type: string
+          description: Username of the user
+          example: taylor_swift
+        password:
+          type: string
+          description: Password of the user
+          example: Password123!
+        email:
+          type: string
+          description: Email of the user
+          example: taylor_swift@example.com
+        name:
+          type: string
+          description: Full name of the user
+          example: Taylor Swift
+        gender:
+          type: string
+          enum: [male, female, other]
+          description: Gender of the user
+          example: female
+        age:
+          type: integer
+          description: Age of the user
+          example: 25
+        introduction:
+          type: string
+          description: Introduction of the user
+          example: Hi, I'm Taylor and I like singing.
+
+    Blog:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the post
+          example: 456
+        title:
+          type: string
+          description: Title of the post
+          example: My life in Boston
+        content:
+          type: string
+          description: Content of the post
+          example: |
+            I like Boston!
+        author:
+          $ref: '#/components/schemas/User'
+          description: Author of the post
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp of when the post was created
+          example: '2023-03-22T10:30:00Z'
+
+    ChatMessage:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the chat message
+          example: 789
+        sender:
+          $ref: '#/components/schemas/User'
+          description: Sender of the chat message
+        receiver:
+          $ref: '#/components/schemas/User'
+          description: Receiver of the chat message
+        message:
+          type: string
+          description: Content of the chat message
+          example: Hi there, how are you?
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp of when the chat message was created
+          example: '2023-03-22T11:00:00Z'
