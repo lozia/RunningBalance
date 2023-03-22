@@ -1,0 +1,260 @@
+Resources for Blog
+
+Business Object Required for Blog:
+
+1. Create account via email and change password
+
+POST /users - Creates a new user account.
+
+Request body:
+{
+    "email": "user@example.com",
+    "password": "password123",
+    "name": "John Doe"
+}
+Response:
+{
+    "user_id": "1234",
+    "email": "user@example.com",
+    "name": "John Doe"
+}
+
+PUT /users/{user_id}/password - Change Password via Email
+
+Request Body:
+{
+    "user_id": "1234",
+    "email": "user@example.com",
+    "password": "password123"
+}
+
+
+2. Get User Profile and Update User Profile
+
+GET /users/{user_id} - Retrieves the user's profile information.
+
+Request parameters:
+{
+    "user_id": "1234"
+}
+Response:
+{
+    "user_id": "1234",
+    "email": "user@example.com",
+    "name": "John Doe",
+    "gender": "Male",
+    "age": 30,
+    "introduction": "Hello, I'm John!"
+}
+
+PUT /users/{user_id} - Update User Profile
+Request body:
+{
+    "user_id": "1234",
+    "name": "Jane Doe",
+    "gender": "Female",
+    "age": 35,
+    "introduction": "Hello, I'm Jane!"
+}
+
+3. Create/Edit/Delete a Blog
+POST /blogs - Creates a new blog.
+Request body:
+{
+    "title": "My First Blog",
+    "content": "This is my first blog post.",
+    "author": "John Doe"
+}
+Response:
+{
+  "blog_id": "1234",
+  "title": "My First Blog",
+  "content": "This is my first blog post.",
+  "author": "John Doe"
+}
+
+PATCH /blogs - Edit an existing blog.
+Request body:
+{
+    "title": "My First Blog",
+    "content": "This is my edited blog post.",
+}
+
+DELETE /blogs - Deletes a new blog.
+Request body:
+{
+    "user_id": "1234"
+    "blog_id": "1234"
+}
+
+
+4.  Follow a Blogger and Unfollow a Blogger
+POST /users/{user_id}/follow - Allows a user to follow another blogger.
+Request parameters:
+{
+    "user_id": "1234",
+    "user_id": "5678"
+}
+
+POST /users/{user_id}/unfollow - Allows a user to unfollow a blogger.
+Request parameters:
+{
+    "user_id": "1234",
+    "user_id": "5678"
+}
+
+5. Like a Blog Post and Unlike a Blog Post
+POST /blogs/{blog_id}/like - Allows a user to like a blog post.
+Request parameters:
+{
+    "blog_id": "1234"
+    "user_id": "1234"
+}
+
+DELETE /blogs/{blog_id}/like - Allows a user to unlike a blog post.
+Request parameters:
+{
+    "blog_id": "1234"
+    "user_id": "1234"
+}
+
+
+6. Create and delete a Comment
+POST /blogs/{blog_id}/comments - Allows a user to create a comment on a blog post.
+Request parameters:
+{
+    "blog_id": "1234"
+    "user_id": "1234",
+    "comment": "Great post, thanks for sharing!"
+}
+
+DELETE /blogs/{blog_id}/comments - Allows a user to delete a comment on a blog post.
+Request parameters:
+{
+    "blog_id": "1234"
+    "user_id": "1234"
+}
+
+7. Share a Post
+POST /users/{blog_id}/share - Allows a user to share a blog post.
+Request parameters:
+{
+    "blog_id": "1234
+    "user_id": "1234"
+}
+Response
+{
+  "message": "Post with blog_id 1234 has been shared by user with user_id 1234"
+}
+
+
+
+8. Search for Bloggers/Blogs
+GET /users/search?query={query} - Allows a user to search for bloggers based on a keyword query.
+Request parameters:
+{
+    "query": "keyword"
+}
+Response:
+[
+    {
+        "user_id": "1234",
+        "name": "John Smith",
+        "username": "jsmith",
+        "introduction": "I'm a software engineer and blogger."
+    }
+    ,
+    {
+        "user_id": "5678",
+        "name": "Jane Doe",
+        "username": "jdoe", 
+        "introduction": "I'm a writer and blogger."
+    }
+]
+
+GET /blogs/search?query={query} - Retrieves a list of posts whose title or content matches the provided query.
+Request parameters:
+{
+    "query": "keyword"
+}
+[  
+    {    
+        "blog_id": "1234",    
+        "title": "....",    
+        "content": "In this post, I share..."  
+    },  
+    {    
+        "blog_id": "5678",    
+        "title": "....",    
+        "content": "..."  
+    }
+]
+
+9. Update User Profile/Post Visibility
+PUT /users/{user_id}/visibility - Allows a user to update the visibility of their profile.
+Request parameters:
+{
+    "user_id": "1234",
+    "is_public": true
+}
+
+PUT /blogs/{blog_id}/visibility
+Request parameters:
+{
+    "user_id": "1234",
+    "blog_id": "1234",
+    "is_public": true
+}
+
+10. Create a Chat 
+
+Create a Chat Room
+POST /chats - Allows a user to create a new chat room with another user.
+Request body:
+{
+    "user_id": "1234",
+    "user_id": "5678"
+}
+Response:
+{
+    "chat_room_id": "abcd1234",
+    "message": "Chat room created successfully"
+}
+
+Send a Message
+POST /chats/{chat_id}/messages - Allows a user to send a message in a chat.
+Request body:
+{
+    "chat_id": "1234",
+    "user_id": "1234",
+    "message": "Hello, how are you?"
+}
+Response:
+{
+    "message_id": "efgh5678",
+    "message": "Message sent successfully"
+}
+
+Get Chat History
+GET /chats/{chat_id}/messages - Retrieves the chat history for a given chat room.
+Request body:
+{
+    "user_id": "1234",
+    "chat_id": "1234"
+}
+Response:
+[  
+    {    
+        "message_id": "ijkl9012",    
+        "user_id": "5678",    
+        "message": "I'm doing well, thanks for asking!",    
+        "timestamp": "2022-03-22 10:00:00"  
+    }
+    ,  
+    {    
+        "message_id": "mnop3456",    
+        "user_id": "1234",    
+        "message": "That's great to hear!",    
+        "timestamp": "2022-03-22 09:55:00"  
+    }
+]
