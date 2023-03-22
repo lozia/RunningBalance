@@ -1,4 +1,11 @@
 # BLOG
+## Team Members
+* Zhiqing Su         su.zhiq@northeastern.edu
+* Xinyue Zhang	     zhang.xinyue12@northeastern.edu
+* Dongsheng Cheng	   cheng.do@northeastern.edu	
+* Zongyao Li	       li.zongyao@northeastern.edu
+
+
 ## Description
 Our project is a web-based application that allows users to create their own blogs and share their posts with the world. The application has a social media component, allowing users to follow other bloggers and see their posts in their feed. Users can also like, comment, and share posts with their followers. The application has a search feature that allows users to search for other bloggers or posts based on keywords. The application also allows people to use the chat function to send private messages to other users.
 ## User Story
@@ -18,15 +25,19 @@ Our project is a web-based application that allows users to create their own blo
 1. Milestone 1: User profile and blog creation
 - User profile creation
 - Blog creation
+<br>(Assigned to Zhiqing Su)
 2. Milestone 2: Social media features
 - Follow other bloggers
 - Like and comment on posts
 - Share posts
+<br>(Assigned to Xinyue Zhang)
 3. Milestone 3: Search feature and post management
 - Search for bloggers and posts
 - Edit or delete posts
+<br>(Assigned to Dongsheng Cheng)
 4. Milestone 4: Chat
 - Send private messages
+<br>(Assigned to Zongyao Li)
 
 ## Object Model
 ![](blog.drawio.png)
