@@ -1,6 +1,6 @@
 
-import {dashboard, expenses, news, location, trend} from '../utils/Icons'
-import { RiCloudWindyLine } from 'react-icons/ri';
+import {dashboard, expenses, news, location, trend, weather, visualization} from '../utils/Icons'
+
 
 export const menuItems = [
     {
@@ -24,7 +24,7 @@ export const menuItems = [
     {
         id: 4,
         title: 'WEATHER',
-        icon: <RiCloudWindyLine />,
+        icon: weather,
         link: '/dashboard',
     }, 
     {
@@ -39,4 +39,10 @@ export const menuItems = [
         icon: location,
         link: "/dashboard",
     },
+    {
+        id: 7,
+        title: 'VISUALIZATION',
+        icon: visualization,
+        link: '/visualization',
+      },
 ]

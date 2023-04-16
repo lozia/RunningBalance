@@ -29,3 +29,5 @@ export const tv = <i className="fa-solid fa-tv"></i>
 export const circle = <i className="fa-solid fa-circle-dot"></i>
 export const news = <i className="fa-solid fa-newspaper"></i>
 export const location = <i class="fa-solid fa-location-dot"></i>
+export const weather = <i className="fa-solid fa-cloud-sun"></i>;
+export const visualization = <i className="fa-solid fa-chart-pie"></i>;

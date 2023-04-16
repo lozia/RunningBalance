@@ -10,6 +10,7 @@ import Expenses from './Components/Expenses/Expenses';
 import News from './Components/News/News';
 import { useGlobalContext } from './context/globalContext';
 import Weather from './Components/Weather/Weather';
+import Visualization from './Components/Visualization/Visualization';
 import Map from './Components/MapLocation/Map';
 import { useJsApiLoader } from '@react-google-maps/api';
 
@@ -42,6 +43,8 @@ function App() {
         return <News />
       case 6:
         return <Map />
+      case 7:
+        return <Visualization />;
       default: 
         return <Dashboard />
     }
