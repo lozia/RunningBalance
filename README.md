@@ -12,42 +12,43 @@ Our project is a balance calculator. Users can view income and expense details, 
 1. As a user, I want to be able to view my total income, expense and balance.
 2. As a user, I want to be able to view my latest income and expense records on the dashboard.
 3. As a user, I want to be able to view my income and expense range.
-4. As a user, I want to be able to add an income or expense statement including title, amount, date, and description.
+4. As a user, I want to be able to add an income or expense statement including title, amount, date, description, and location.
 5. As a user, I want to be able to delete an income or expense statement.
+6. As a user, I want to be able to view the weather of my desired city.
+7. As a user, I want to be able to view the today's news.
+8. As a user, I want to be able to view the locations of my transaction.
 
 ## Story Assignment 	
 
 ### Zhiqing Su
-
+Google Map Api
 
 ### Xinyue Zhang
-
+Open Weather Map Api
 
 ### Dongsheng Cheng	
-
-
+Calulator feature and interface
 
 ### Zongyao Li
-
+News Api
 
 
 
 ## Milestones
 1. Milestone 1: Calculator dashboard
-- Total income, expense and balance
+- Total income, expense and balance; Income and expense range
 - Latest transactions
-- Income and expense range
+- Add and delete income/expense statement
 
-2. Milestone 2: Income
-- Add a new income statement
-- Delete an income statement
+2. Milestone 2: Weather board
+- View the weather of my desired city
 
-3. Milestone 3: Expense
-- Add a new expense statement
-- Delete an expense statement
+3. Milestone 3: News dashboard
+- View the today's news
 
-4. Milestone 4: Google Map Api
-- Add Google Map Api to locate the place of consumption and income
+4. Milestone 4: Google Map dashboard
+- Add location of transaction statement
+- View locations in map
 
 
 ## Object Model
