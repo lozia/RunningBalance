@@ -3,8 +3,8 @@ import axios from 'axios'
 
 
 const BASE_URL = "http://localhost:5001/api/v1/";
-const NEWS_API_KEY = "&apiKey=2d6ff00e0317456ea33408d024a2cc97"
-const NEWS_URL = `https://newsapi.org/v2/everything?language=en&pageSize=5&${NEWS_API_KEY}&q=stocks`
+const NEWS_API_KEY = "apiKey=2d6ff00e0317456ea33408d024a2cc97"
+const NEWS_URL = `https://newsapi.org/v2/top-headlines?language=en&pageSize=5&category=business&${NEWS_API_KEY}`
 
 
 const GlobalContext = React.createContext()
@@ -28,7 +28,7 @@ export const GlobalProvider = ({children}) => {
     const getIncomes = async () => {
         const response = await axios.get(`${BASE_URL}get-incomes`)
         setIncomes(response.data)
-        console.log(response.data)
+        // console.log(response.data)
     }
 
     const deleteIncome = async (id) => {
@@ -58,7 +58,7 @@ export const GlobalProvider = ({children}) => {
     const getExpenses = async () => {
         const response = await axios.get(`${BASE_URL}get-expenses`)
         setExpenses(response.data)
-        console.log(response.data)
+        // console.log(response.data)
     }
 
     const deleteExpense = async (id) => {
@@ -89,8 +89,8 @@ export const GlobalProvider = ({children}) => {
         return history.slice(0, 3)
     }
 
-    const getNews = async (kw) => {
-        const res = await axios.get(`${NEWS_URL}${kw}`,{responseType:'json'})
+    const getNews = async () => {
+        const res = await axios.get(`${NEWS_URL}`,{responseType:'json'})
         if (res.data.status === "ok") {
             const articles = res.data.articles
             setNews(articles)

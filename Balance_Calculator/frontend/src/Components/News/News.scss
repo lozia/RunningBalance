@@ -23,8 +23,8 @@
     .news-content{
         display: flex;
         gap: 2rem;
-        .news{
-            flex: 1;
+        .news-item{
+            flex: 0;
         }
     }
 }
