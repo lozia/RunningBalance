@@ -4,7 +4,10 @@ import axios from 'axios'
 
 const BASE_URL = "http://localhost:5001/api/v1/";
 const NEWS_API_KEY = "&apiKey=2d6ff00e0317456ea33408d024a2cc97"
-const NEWS_URL = `https://newsapi.org/v2/everything?language=en&pageSize=5&${NEWS_API_KEY}&q=stocks`
+const NEWS_URL = `https://newsapi.org/v2/everything?language=en&pageSize=5&${NEWS_API_KEY}&q=`
+
+const WEATHER_API_KEY = 'db0b09b486a19feb1860cfb78eebf35b'; 
+const WEATHER_URL = 'https://api.openweathermap.org/data/2.5/weather?q=';
 
 
 const GlobalContext = React.createContext()
@@ -14,6 +17,7 @@ export const GlobalProvider = ({children}) => {
     const [incomes, setIncomes] = useState([])
     const [expenses, setExpenses] = useState([])
     const [news, setNews] = useState([])
+    const [weather, setWeather] = useState({})
     const [error, setError] = useState(null)
 
     //calculate incomes
@@ -101,6 +105,15 @@ export const GlobalProvider = ({children}) => {
         }
     }
 
+    const getWeather = async (city) => {
+        try {
+          const response = await axios.get(`${WEATHER_URL}${city}&appid=${WEATHER_API_KEY}`);
+          setWeather(response.data);
+          console.log(`Fetch weather from ${WEATHER_URL} successfully`);
+        } catch (error) {
+          console.log(`Cannot fetch weather from ${WEATHER_URL}`);
+        }
+      };
 
     return (
         <GlobalContext.Provider value={{
@@ -118,6 +131,8 @@ export const GlobalProvider = ({children}) => {
             transactionHistory,
             news,
             getNews,
+            weather,
+            getWeather,
             error,
             setError
         }}>
