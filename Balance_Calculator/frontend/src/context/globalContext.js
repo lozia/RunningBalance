@@ -18,6 +18,7 @@ export const GlobalProvider = ({children}) => {
     const [expenses, setExpenses] = useState([])
     const [news, setNews] = useState([])
     const [weather, setWeather] = useState({})
+    const [weatherForecast, setWeatherForecast] = useState(null);
     const [error, setError] = useState(null)
 
     //calculate incomes
@@ -170,6 +171,24 @@ export const GlobalProvider = ({children}) => {
         }
       };
 
+      const getWeatherForecast = async (lat, lon) => {
+        try {
+          const response = await fetch(
+            `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,alerts&appid=${WEATHER_API_KEY}`
+          );
+          const data = await response.json();
+          console.log("Weather Forecast Data:", data);
+          if (response.ok) {
+            setWeatherForecast(data);
+          } else {
+            setError(data.message);
+          }
+        } catch (error) {
+          setError(error.message);
+        }
+      };
+      
+
     return (
         <GlobalContext.Provider value={{
             addIncome,
@@ -188,6 +207,8 @@ export const GlobalProvider = ({children}) => {
             getNews,
             weather,
             getWeather,
+            weatherForecast,
+            getWeatherForecast,
             error,
             setError
         }}>

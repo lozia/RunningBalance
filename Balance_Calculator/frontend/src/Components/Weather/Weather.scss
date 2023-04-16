@@ -4,7 +4,7 @@
     align-items: center;
     overflow: auto;
     padding: 2rem;
-    background-color: #f0f2f5;
+    // background-color: #f0f2f5;
   
     h1 {
       font-size: 2.5rem;
@@ -60,5 +60,26 @@
         }
       }
     }
+    .weather-forecast {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1rem;
+    
+        div {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 0.5rem;
+    
+          p {
+            font-size: 1.2rem;
+          }
+    
+          img {
+            width: 60px;
+            height: 60px;
+          }
+        }
+      }
   }
   
