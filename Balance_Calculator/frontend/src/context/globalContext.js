@@ -3,7 +3,7 @@ import axios from 'axios'
 
 
 const BASE_URL = "http://localhost:5001/api/v1/";
-const NEWS_API_KEY = "&apiKey=2d6ff00e0317456ea33408d024a2cc97"
+const NEWS_API_KEY = "apiKey=2d6ff00e0317456ea33408d024a2cc97"
 const NEWS_URL = `https://newsapi.org/v2/top-headlines?language=en&pageSize=5&category=business&${NEWS_API_KEY}`
 
 const WEATHER_API_KEY = 'db0b09b486a19feb1860cfb78eebf35b'; 
@@ -94,15 +94,32 @@ export const GlobalProvider = ({children}) => {
     }
 
     const getNews = async () => {
-        const res = await axios.get(`${NEWS_URL}`,{responseType:'json'})
-        if (res.data.status === "ok") {
-            const articles = res.data.articles
-            setNews(articles)
-            console.log(`Fetch news from ${NEWS_URL} successfully`)
+        setNews([{
+            source: {
+                id: null,
+                name: 'example.publisher'
+            },
+            title: 'Example Title1',
+            publishedAt: '2023.04.16',
+            url: 'http://example.com'
+        },{
+            source: {
+                id: null,
+                name: 'example.publisher'
+            },
+            title: 'Example Title2',
+            publishedAt: '2023.04.16',
+            url: 'http://example.com'
+        }])
+        // const res = await axios.get(`${NEWS_URL}`,{responseType:'json'})
+        // if (res.data.status === "ok") {
+        //     const articles = res.data.articles
+        //     setNews(articles)
+        //     console.log(`Fetch news from ${NEWS_URL} successfully`)
 
-        } else {
-            console.log(`Cannot fetch news from ${NEWS_URL}`)
-        }
+        // } else {
+        //     console.log(`Cannot fetch news from ${NEWS_URL}`)
+        // }
     }
 
     const getWeather = async (city) => {
