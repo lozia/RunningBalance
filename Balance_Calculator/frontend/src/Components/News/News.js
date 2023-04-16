@@ -23,6 +23,7 @@ function News() {
                     const title = content.title
                     const publishedAt = content.publishedAt
                     const url = content.url
+                    const descript = content.descript
 
                     return <NewsItem 
                         key={content.title}
@@ -30,6 +31,7 @@ function News() {
                         title={title}
                         publishedAt={publishedAt}
                         url={url}
+                        descript={descript}
                     />
                 })}
                 </div>

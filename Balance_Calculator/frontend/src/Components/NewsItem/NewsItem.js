@@ -1,7 +1,7 @@
 import './NewsItem.scss'
 import React from 'react'
 
-function NewsItem ({ title, source, publishedAt, url}) {
+function NewsItem ({ title, source, publishedAt, url, descript}) {
 
     return <div className="news-item">
         <h4 className="news-title">
@@ -14,6 +14,9 @@ function NewsItem ({ title, source, publishedAt, url}) {
         </p>
         <p className="news-publishedAt">
             {publishedAt}
+        </p>
+        <p className="news-descript">
+            {descript}
         </p>
     </div>
 

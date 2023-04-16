@@ -101,7 +101,8 @@ export const GlobalProvider = ({children}) => {
             },
             title: 'Example Title1',
             publishedAt: '2023.04.16',
-            url: 'http://example.com'
+            url: 'http://example.com',
+            descript: "LoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLorem"
         },{
             source: {
                 id: null,
@@ -109,7 +110,8 @@ export const GlobalProvider = ({children}) => {
             },
             title: 'Example Title2',
             publishedAt: '2023.04.16',
-            url: 'http://example.com'
+            url: 'http://example.com',
+            descript: "LoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLorem"
         },{
             source: {
                 id: null,
@@ -117,7 +119,8 @@ export const GlobalProvider = ({children}) => {
             },
             title: 'Example Title3',
             publishedAt: '2023.04.16',
-            url: 'http://example.com'
+            url: 'http://example.com',
+            descript: "LoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLorem"
         },{
             source: {
                 id: null,
@@ -125,7 +128,8 @@ export const GlobalProvider = ({children}) => {
             },
             title: 'Example Title4',
             publishedAt: '2023.04.16',
-            url: 'http://example.com'
+            url: 'http://example.com',
+            descript: "LoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLorem"
         },{
             source: {
                 id: null,
@@ -133,7 +137,8 @@ export const GlobalProvider = ({children}) => {
             },
             title: 'Example Title5',
             publishedAt: '2023.04.16',
-            url: 'http://example.com'
+            url: 'http://example.com',
+            descript: "LoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLorem"
         },{
             source: {
                 id: null,
@@ -141,7 +146,8 @@ export const GlobalProvider = ({children}) => {
             },
             title: 'Example Title6',
             publishedAt: '2023.04.16',
-            url: 'http://example.com'
+            url: 'http://example.com',
+            descript: "LoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLorem"
         }])
         // const res = await axios.get(`${NEWS_URL}`,{responseType:'json'})
         // if (res.data.status === "ok") {
