@@ -1,14 +1,22 @@
+import './NewsItem.scss'
+import React from 'react'
 
-function NewsItem (title, source, time) {
-
+function NewsItem ({ title, source, publishedAt, url, descript}) {
 
     return <div className="news-item">
-        <h4 className="news-title">{title}</h4>
-        <p className="news-source">
+        <h4 className="news-title">
+            <a href={url}>
+                {title}
+            </a>
+        </h4>
+        <p className='new-source'>
             {source}
         </p>
         <p className="news-publishedAt">
-            {time}
+            {publishedAt}
+        </p>
+        <p className="news-descript">
+            {descript}
         </p>
     </div>
 

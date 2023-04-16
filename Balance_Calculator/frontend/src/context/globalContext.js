@@ -3,8 +3,8 @@ import axios from 'axios'
 
 
 const BASE_URL = "http://localhost:5001/api/v1/";
-const NEWS_API_KEY = "&apiKey=2d6ff00e0317456ea33408d024a2cc97"
-const NEWS_URL = `https://newsapi.org/v2/everything?language=en&pageSize=5&${NEWS_API_KEY}&q=`
+const NEWS_API_KEY = "apiKey=2d6ff00e0317456ea33408d024a2cc97"
+const NEWS_URL = `https://newsapi.org/v2/top-headlines?language=en&pageSize=5&category=business&${NEWS_API_KEY}`
 
 const WEATHER_API_KEY = 'db0b09b486a19feb1860cfb78eebf35b'; 
 const WEATHER_URL = 'https://api.openweathermap.org/data/2.5/weather?q=';
@@ -32,7 +32,7 @@ export const GlobalProvider = ({children}) => {
     const getIncomes = async () => {
         const response = await axios.get(`${BASE_URL}get-incomes`)
         setIncomes(response.data)
-        console.log(response.data)
+        // console.log(response.data)
     }
 
     const deleteIncome = async (id) => {
@@ -62,7 +62,7 @@ export const GlobalProvider = ({children}) => {
     const getExpenses = async () => {
         const response = await axios.get(`${BASE_URL}get-expenses`)
         setExpenses(response.data)
-        console.log(response.data)
+        // console.log(response.data)
     }
 
     const deleteExpense = async (id) => {
@@ -93,16 +93,71 @@ export const GlobalProvider = ({children}) => {
         return history.slice(0, 3)
     }
 
-    const getNews = async (kw) => {
-        const res = await axios.get(`${NEWS_URL}${kw}`,{responseType:'json'})
-        if (res.data.status === "ok") {
-            const articles = res.data.articles
-            setNews(articles)
-            console.log(`Fetch news from ${NEWS_URL} successfully`)
+    const getNews = async () => {
+        setNews([{
+            source: {
+                id: null,
+                name: 'example.publisher'
+            },
+            title: 'Example Title1',
+            publishedAt: '2023.04.16',
+            url: 'http://example.com',
+            descript: "LoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLorem"
+        },{
+            source: {
+                id: null,
+                name: 'example.publisher'
+            },
+            title: 'Example Title2',
+            publishedAt: '2023.04.16',
+            url: 'http://example.com',
+            descript: "LoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLorem"
+        },{
+            source: {
+                id: null,
+                name: 'example.publisher'
+            },
+            title: 'Example Title3',
+            publishedAt: '2023.04.16',
+            url: 'http://example.com',
+            descript: "LoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLorem"
+        },{
+            source: {
+                id: null,
+                name: 'example.publisher'
+            },
+            title: 'Example Title4',
+            publishedAt: '2023.04.16',
+            url: 'http://example.com',
+            descript: "LoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLorem"
+        },{
+            source: {
+                id: null,
+                name: 'example.publisher'
+            },
+            title: 'Example Title5',
+            publishedAt: '2023.04.16',
+            url: 'http://example.com',
+            descript: "LoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLorem"
+        },{
+            source: {
+                id: null,
+                name: 'example.publisher'
+            },
+            title: 'Example Title6',
+            publishedAt: '2023.04.16',
+            url: 'http://example.com',
+            descript: "LoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLorem"
+        }])
+        // const res = await axios.get(`${NEWS_URL}`,{responseType:'json'})
+        // if (res.data.status === "ok") {
+        //     const articles = res.data.articles
+        //     setNews(articles)
+        //     console.log(`Fetch news from ${NEWS_URL} successfully`)
 
-        } else {
-            console.log(`Cannot fetch news from ${NEWS_URL}`)
-        }
+        // } else {
+        //     console.log(`Cannot fetch news from ${NEWS_URL}`)
+        // }
     }
 
     const getWeather = async (city) => {

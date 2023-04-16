@@ -1,10 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState,useRef } from 'react'
 import styled from 'styled-components'
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
 import { useGlobalContext } from '../../context/globalContext';
 import Button from '../Button/Button';
 import { plus } from '../../utils/Icons';
+import './ExpenseForm.scss'
+import {Autocomplete } from '@react-google-maps/api';
 
 
 function ExpenseForm() {
@@ -15,9 +17,12 @@ function ExpenseForm() {
         date: '',
         category: '',
         description: '',
+        loaction: '',
     })
 
-    const { title, amount, date, category,description } = inputState;
+    const { title, amount, date, category,description,location } = inputState;
+
+    const locationRef = useRef()
 
     const handleInput = name => e => {
         setInputState({...inputState, [name]: e.target.value})
@@ -34,10 +39,15 @@ function ExpenseForm() {
             category: '',
             description: '',
         })
+        locationRef.current.value = ''
+    }
+
+    const handleAutoComplete = async () =>{
+        setInputState({...inputState, ['location']: locationRef.current.value})
     }
 
     return (
-        <ExpenseFormStyled onSubmit={handleSubmit}>
+        <form className='expense-form' onSubmit={handleSubmit}>
             {error && <p className='error'>{error}</p>}
             <div className="input-control">
                 <input 
@@ -59,7 +69,7 @@ function ExpenseForm() {
             <div className="input-control">
                 <DatePicker 
                     id='date'
-                    placeholderText='Enter A Date'
+                    placeholderText='Enter A Date: MM/DD/YYYY'
                     selected={date}
                     dateFormat="MM/dd/yyyy"
                     onChange={(date) => {
@@ -81,7 +91,19 @@ function ExpenseForm() {
                 </select>
             </div>
             <div className="input-control">
-                <textarea name="description" value={description} placeholder='Add A Description' id="description" cols="30" rows="2" onChange={handleInput('description')}></textarea>
+                <textarea name="description" value={description} placeholder='Add a description for this spend' id="description" cols="30" rows="2" onChange={handleInput('description')}></textarea>
+            </div>
+            <div className="input-control">
+                <Autocomplete onPlaceChanged={handleAutoComplete}>
+                    <input 
+                        type="text" 
+                        value={location}
+                        name={'location'} 
+                        placeholder="Location"
+                        onChange={handleInput('location')}
+                        ref={locationRef} required
+                    />
+                </Autocomplete>
             </div>
             <div className="submit-btn">
                 <Button 
@@ -93,53 +115,12 @@ function ExpenseForm() {
                     color={'#fff'}
                 />
             </div>
-        </ExpenseFormStyled>
+        </form>
     )
 }
 
 
 const ExpenseFormStyled = styled.form`
-    display: flex;
-    flex-direction: column;
-    gap: 1.0rem;
-    input, textarea, select{
-        font-family: inherit;
-        font-size: 18px;
-        outline: none;
-        border: none;
-        padding: .5rem 1rem;
-        border-radius: 8px;
-        border: 2px solid #fff;
-        background: #fbf6f9;
-        resize: none;
-        box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.06);
-        color: rgba(34, 34, 96, 0.9);
-        &::placeholder{
-            color: rgba(34, 34, 96, 0.4);
-        }
-    }
-    .input-control{
-        input{
-            width: 100%;
-        }
-    }
-
-    .selects{
-        display: flex;
-        justify-content: flex-end;
-        select{
-            width: 100%;
-            color: rgba(34, 34, 96, 0.4);
-            &:focus, &:active{
-                color: rgba(34, 34, 96, 1);
-            }
-        }
-    }
-
-    .submit-btn{
-        button{
-            box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.06);
-        }
-    }
+    
 `;
 export default ExpenseForm
