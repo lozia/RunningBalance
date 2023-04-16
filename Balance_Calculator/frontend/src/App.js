@@ -9,6 +9,7 @@ import Income from './Components/Income/Income'
 import Expenses from './Components/Expenses/Expenses';
 import News from './Components/News/News';
 import { useGlobalContext } from './context/globalContext';
+import Weather from './Components/Weather/Weather';
 
 function App() {
   const [active, setActive] = useState(1)
@@ -24,6 +25,8 @@ function App() {
         return <Income />
       case 3: 
         return <Expenses />
+      case 4:
+        return <Weather />
       case 5: 
         return <News />
       default: 

@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import avatar from '../../img/icon.svg'
 import { menuItems } from '../../utils/menuItems'
 import './Navigation.scss'
+import Weather from '../Weather/Weather';
 
 function Navigation({active, setActive}) {
     
