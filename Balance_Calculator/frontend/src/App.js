@@ -7,6 +7,7 @@ import Navigation from './Components/Navigation/Navigation'
 import Dashboard from './Components/Dashboard/Dashboard';
 import Income from './Components/Income/Income'
 import Expenses from './Components/Expenses/Expenses';
+import News from './Components/News/News';
 import { useGlobalContext } from './context/globalContext';
 
 function App() {
@@ -23,11 +24,14 @@ function App() {
         return <Income />
       case 3: 
         return <Expenses />
+      case 5: 
+        return <News />
       default: 
         return <Dashboard />
     }
   }
 
+  // Background
   const orbMemo = useMemo(() => {
     return <Orb />
   },[])

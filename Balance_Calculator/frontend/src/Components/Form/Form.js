@@ -45,7 +45,7 @@ function Form() {
                     value={title}
                     name={'title'} 
                     placeholder="Income Title"
-                    onChange={handleInput('title')}
+                    onChange={handleInput('title')} required
                 />
             </div>
             <div className="input-control">
@@ -53,13 +53,13 @@ function Form() {
                     type="text" 
                     name={'amount'} 
                     placeholder={'Income Amount'}
-                    onChange={handleInput('amount')} 
+                    onChange={handleInput('amount')} required
                 />
             </div>
             <div className="input-control">
                 <DatePicker 
                     id='date'
-                    placeholderText='Enter A Date'
+                    placeholderText='Enter A Date: MM/DD/YYYY'
                     selected={date}
                     dateFormat="MM/dd/yyyy"
                     onChange={(date) => {
@@ -81,7 +81,7 @@ function Form() {
                 </select>
             </div>
             <div className="input-control">
-                <textarea name="description" value={description} placeholder='Add A Description' id="description" cols="30" rows="2" onChange={handleInput('description')}></textarea>
+                <textarea name="description" value={description} placeholder='Add a description for this income' id="description" cols="30" rows="2" onChange={handleInput('description')}></textarea>
             </div>
             <div className="submit-btn">
                 <Button 

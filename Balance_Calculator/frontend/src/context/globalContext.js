@@ -2,7 +2,9 @@ import React, { useContext, useState } from "react"
 import axios from 'axios'
 
 
-const BASE_URL = "http://localhost:5000/api/v1/";
+const BASE_URL = "http://localhost:5001/api/v1/";
+const NEWS_API_KEY = "&apiKey=2d6ff00e0317456ea33408d024a2cc97"
+const NEWS_URL = `https://newsapi.org/v2/everything?language=en&pageSize=5&${NEWS_API_KEY}&q=`
 
 
 const GlobalContext = React.createContext()
@@ -11,11 +13,12 @@ export const GlobalProvider = ({children}) => {
 
     const [incomes, setIncomes] = useState([])
     const [expenses, setExpenses] = useState([])
+    const [news, setNews] = useState([])
     const [error, setError] = useState(null)
 
     //calculate incomes
     const addIncome = async (income) => {
-        const response = await axios.post(`${BASE_URL}add-income`, income)
+        await axios.post(`${BASE_URL}add-income`, income)
             .catch((err) =>{
                 setError(err.response.data.message)
             })
@@ -29,7 +32,7 @@ export const GlobalProvider = ({children}) => {
     }
 
     const deleteIncome = async (id) => {
-        const res  = await axios.delete(`${BASE_URL}delete-income/${id}`)
+        await axios.delete(`${BASE_URL}delete-income/${id}`)
         getIncomes()
     }
 
@@ -45,7 +48,7 @@ export const GlobalProvider = ({children}) => {
 
     //calculate incomes
     const addExpense = async (income) => {
-        const response = await axios.post(`${BASE_URL}add-expense`, income)
+        await axios.post(`${BASE_URL}add-expense`, income)
             .catch((err) =>{
                 setError(err.response.data.message)
             })
@@ -59,7 +62,7 @@ export const GlobalProvider = ({children}) => {
     }
 
     const deleteExpense = async (id) => {
-        const res  = await axios.delete(`${BASE_URL}delete-expense/${id}`)
+        await axios.delete(`${BASE_URL}delete-expense/${id}`)
         getExpenses()
     }
 
@@ -86,6 +89,18 @@ export const GlobalProvider = ({children}) => {
         return history.slice(0, 3)
     }
 
+    const getNews = async (kw) => {
+        const res = await axios.get(`${NEWS_URL}${kw}`,{responseType:'json'})
+        if (res.data.status === "ok") {
+            const articles = res.data.articles
+            setNews(articles)
+            console.log(`Fetch news from ${NEWS_URL} successfully`)
+
+        } else {
+            console.log(`Cannot fetch news from ${NEWS_URL}`)
+        }
+    }
+
 
     return (
         <GlobalContext.Provider value={{
@@ -101,6 +116,8 @@ export const GlobalProvider = ({children}) => {
             totalExpenses,
             totalBalance,
             transactionHistory,
+            news,
+            getNews,
             error,
             setError
         }}>

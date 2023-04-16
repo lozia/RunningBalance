@@ -2,11 +2,12 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import avatar from '../../img/icon.svg'
 import { menuItems } from '../../utils/menuItems'
+import './Navigation.scss'
 
 function Navigation({active, setActive}) {
     
     return (
-        <NavStyled>
+        <div className='nav-main'>
             <div className="user-con">
                 <img src={avatar} alt="" />
                 <div className="text">
@@ -31,88 +32,9 @@ function Navigation({active, setActive}) {
                     {signout} Sign Out
                 </li>
             </div> */}
-        </NavStyled>
+        </div>
     )
 }
 
-const NavStyled = styled.nav`
-    padding: 2rem 1.5rem;
-    width: 374px;
-    height: 100%;
-    background: #D8D4F0;
-    border: 3px solid #FFFFFF;
-    backdrop-filter: blur(4.5px);
-    border-radius: 32px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 2rem;
-    .user-con{
-        height: 300px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        gap: 1rem;
-        img{
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            object-fit: cover;
-            background: #fcf6f9;
-            border: 2px solid #FFFFFF;
-            padding: .2rem;
-            box-shadow: 0px 1px 17px rgba(0, 0, 0, 0.06);
-        }
-        h2{
-            color: rgba(34, 34, 96, 1);
-        }
-        p{
-            color: rgba(34, 34, 96, .6);
-        }
-    }
-
-    .menu-items{
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        li{
-            font-size: 1.6rem;
-            display: grid;
-            grid-template-columns: 40px auto;
-            align-items: center;
-            margin: .6rem 0;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all .4s ease-in-out;
-            color: rgba(34, 34, 96, .6);
-            padding-left: 2.8rem;
-            position: relative;
-            i{
-                color: rgba(34, 34, 96, 0.6);
-                font-size: 1.4rem;
-                transition: all .4s ease-in-out;
-            }
-        }
-    }
-
-    .active{
-        color: rgba(34, 34, 96, 1) !important;
-        i{
-            color: rgba(34, 34, 96, 1) !important;
-        }
-        &::before{
-            content: "";
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 4px;
-            height: 100%;
-            background: #222260;
-            border-radius: 0 10px 10px 0;
-        }
-    }
-`;
 
 export default Navigation
