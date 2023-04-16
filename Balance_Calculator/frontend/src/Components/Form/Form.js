@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState,useRef } from 'react'
 import styled from 'styled-components'
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
 import { useGlobalContext } from '../../context/globalContext';
 import Button from '../Button/Button';
 import { plus } from '../../utils/Icons';
+import {Autocomplete} from '@react-google-maps/api';
 
 
 function Form() {
@@ -15,9 +16,12 @@ function Form() {
         date: '',
         category: '',
         description: '',
+        loaction: '',
     })
 
-    const { title, amount, date, category,description } = inputState;
+    const { title, amount, date, category,description,location } = inputState;
+
+    const locationRef = useRef()
 
     const handleInput = name => e => {
         setInputState({...inputState, [name]: e.target.value})
@@ -33,8 +37,15 @@ function Form() {
             date: '',
             category: '',
             description: '',
+            loaction: '',
         })
+        locationRef.current.value = ''
     }
+
+    const handleAutoComplete = (place) =>{
+        setInputState({...inputState, ['location']: locationRef.current.value})
+    }
+
 
     return (
         <FormStyled onSubmit={handleSubmit}>
@@ -82,6 +93,18 @@ function Form() {
             </div>
             <div className="input-control">
                 <textarea name="description" value={description} placeholder='Add a description for this income' id="description" cols="30" rows="2" onChange={handleInput('description')}></textarea>
+            </div>
+            <div className="input-control">
+                <Autocomplete onPlaceChanged={handleAutoComplete}>
+                    <input 
+                        type="text" 
+                        value={location}
+                        name={'location'} 
+                        placeholder="Location"
+                        onChange={handleInput('location')}
+                        ref={locationRef} required
+                    />
+                </Autocomplete>
             </div>
             <div className="submit-btn">
                 <Button 

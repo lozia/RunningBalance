@@ -10,12 +10,23 @@ import Expenses from './Components/Expenses/Expenses';
 import News from './Components/News/News';
 import { useGlobalContext } from './context/globalContext';
 import Weather from './Components/Weather/Weather';
+import Map from './Components/MapLocation/Map';
+import { useJsApiLoader } from '@react-google-maps/api';
 
 function App() {
   const [active, setActive] = useState(1)
 
   const global = useGlobalContext()
   // console.log(global);
+
+  //load google map api
+  const {isLoaded} = useJsApiLoader({
+    googleMapsApiKey: 'AIzaSyB_27lWXeJoFzJPhiUVMGSNaNMXke2Mpjo',
+    libraries:['places','geometry','geocoding'],
+  })
+  if(!isLoaded){
+      console.log("Google Map Api connection error")
+  }
 
   const displayData = () => {
     switch(active){
@@ -29,6 +40,8 @@ function App() {
         return <Weather />
       case 5: 
         return <News />
+      case 6:
+        return <Map />
       default: 
         return <Dashboard />
     }

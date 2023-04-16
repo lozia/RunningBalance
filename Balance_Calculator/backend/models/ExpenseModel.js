@@ -34,6 +34,12 @@ const ExpenseSchema = new mongoose.Schema({
         maxLength: 20,
         trim: true
     },
+    location: {
+        type: String,
+        required: true,
+        maxLength: 40,
+        trim: true
+    },
 }, {timestamps: true})
 
 module.exports = mongoose.model('Expense', ExpenseSchema)
