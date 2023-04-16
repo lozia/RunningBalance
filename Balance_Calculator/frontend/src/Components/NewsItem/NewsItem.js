@@ -10,7 +10,7 @@ function NewsItem ({ title, source, publishedAt, url}) {
             </a>
         </h4>
         <p className='new-source'>
-            {source.name}
+            {source}
         </p>
         <p className="news-publishedAt">
             {publishedAt}

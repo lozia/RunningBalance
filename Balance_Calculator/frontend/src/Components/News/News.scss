@@ -21,10 +21,13 @@
         }
     }
     .news-content{
-        display: flex;
-        gap: 2rem;
+        width: auto;
+        display:flex;
+        flex-direction: column;
+        
+        gap: 0 rem;
         .news-item{
-            flex: 0;
+            flex: 1;
         }
     }
 }

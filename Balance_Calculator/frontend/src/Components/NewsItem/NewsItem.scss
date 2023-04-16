@@ -6,7 +6,7 @@
     border-radius: 20px;
     padding: 1rem;
     margin-bottom: 1rem;
-    display: flex;
+    display: block;
     align-items: center;
     gap: 1rem;
     width: 100%;
@@ -18,11 +18,20 @@
 }
 
 .news-title {
-    font-size: 1rem;
-    color: black;
+    font-size: 1.6rem;
+    
+    a {
+        text-decoration: underline;
+        color: black;
+    }
 }
 
 .news-source {
     font-size: 1rem;
     color: darkgray;
+}
+
+.news-descript {
+    font-size: 1.2rem;
+
 }
