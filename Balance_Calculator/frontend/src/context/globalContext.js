@@ -4,7 +4,7 @@ import axios from 'axios'
 
 const BASE_URL = "http://localhost:5001/api/v1/";
 const NEWS_API_KEY = "&apiKey=2d6ff00e0317456ea33408d024a2cc97"
-const NEWS_URL = `https://newsapi.org/v2/everything?language=en&pageSize=5&${NEWS_API_KEY}&q=`
+const NEWS_URL = `https://newsapi.org/v2/everything?language=en&pageSize=5&${NEWS_API_KEY}&q=stocks`
 
 
 const GlobalContext = React.createContext()
