@@ -7,8 +7,9 @@ const NEWS_API_KEY = "apiKey=2d6ff00e0317456ea33408d024a2cc97"
 const NEWS_URL = `https://newsapi.org/v2/top-headlines?language=en&pageSize=5&category=business&${NEWS_API_KEY}`
 
 // const WEATHER_API_KEY = "205924f4285a40d9a96233209231604";
-const OPEN_WEATHER_MAP_API_KEY = "db0b09b486a19feb1860cfb78eebf35b";
-const WEATHER_URL = "http://api.weatherapi.com/v1/current.json?key=";
+const WEATHER_API_KEY = "db0b09b486a19feb1860cfb78eebf35b";
+const WEATHER_URL = "https://api.openweathermap.org/data/2.5/weather?";
+const FORECAST_URL = "https://api.openweathermap.org/data/2.5/forecast?";
 
 
 
@@ -165,8 +166,9 @@ export const GlobalProvider = ({children}) => {
 
     const getWeather = useCallback(async (city) => {
         try {
+          // Fetch the current weather using the city name
           const response = await fetch(
-            `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${OPEN_WEATHER_MAP_API_KEY}`
+            `${WEATHER_URL}q=${city}&appid=${WEATHER_API_KEY}`
           );
           const data = await response.json();
           if (data) {
@@ -182,8 +184,9 @@ export const GlobalProvider = ({children}) => {
       
       const getWeatherForecast = useCallback(async (city) => {
         try {
+          // Fetch the 5-day forecast using the city name
           const response = await fetch(
-            `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${OPEN_WEATHER_MAP_API_KEY}`
+            `${FORECAST_URL}q=${city}&appid=${WEATHER_API_KEY}`
           );
           const data = await response.json();
           if (data) {

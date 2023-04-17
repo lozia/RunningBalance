@@ -13,15 +13,40 @@ function Weather() {
   } = useGlobalContext();
   const [selectedCity, setSelectedCity] = useState("Boston");
 
-  useEffect(() => {
+//   useEffect(() => {
+//     getWeather(selectedCity).then(() => {
+//       if (weather.coord) {
+//         getWeatherForecast(weather.coord.lat, weather.coord.lon);
+//       }
+//     });
+//   }, [selectedCity, weather.coord, getWeather, getWeatherForecast]);
+useEffect(() => {
     getWeather(selectedCity);
     getWeatherForecast(selectedCity);
   }, [selectedCity, getWeather, getWeatherForecast]);
   
+//   const displayWeatherData = () => {
+//     if (!weather || !weatherForecast) {
+//       return <p>Loading...</p>;
+//     }
+  
+//     return (
+//       <div>
+//         <h3>City: {weather.name}</h3>
+//         <h4>Temperature: {weather.main.temp}K</h4>
+//         {/* Add more data as needed */}
+//       </div>
+//     );
+//   };
 
   const handleCityChange = (e) => {
     setSelectedCity(e.target.value);
   };
+
+  if (!weather || !weatherForecast) {
+    return <p>Loading...</p>;
+  }
+
 
   console.log("Weather Forecast Prop:", weatherForecast);
   console.log("Weather Data:", weather);
@@ -60,21 +85,27 @@ function Weather() {
           )}
         </div>
         <div className="weather-forecast">
-        {weatherForecast && weatherForecast.daily && weatherForecast.daily.slice(1, 6).map((day, index) => (
-            <div key={index} className="forecast-day">
-            <h3>{new Date(day.dt * 1000).toLocaleDateString()}</h3>
-            <p>Weather: {day.weather[0].main}</p>
-            <p>Description: {day.weather[0].description}</p>
-            <p>Temperature: {(day.temp.day - 273.15).toFixed(2)} °C</p>
-            <p>Humidity: {day.humidity}%</p>
-            <p>Wind Speed: {day.wind_speed} m/s</p>
-            <p>Wind Direction: {day.wind_deg}°</p>
-            </div>
-        ))}
+          {weatherForecast &&
+            weatherForecast.list &&
+            weatherForecast.list.map((forecast, index) => (
+              <div key={index} className="forecast-item">
+                <h3>{new Date(forecast.dt * 1000).toLocaleString()}</h3>
+                <p>Weather: {forecast.weather[0].main}</p>
+                <p>Description: {forecast.weather[0].description}</p>
+                <p>
+                  Temperature: {(forecast.main.temp - 273.15).toFixed(2)} °C
+                </p>
+                <p>Humidity: {forecast.main.humidity}%</p>
+                <p>Wind Speed: {forecast.wind.speed} m/s</p>
+                <p>Wind Direction: {forecast.wind.deg}°</p>
+              </div>
+            ))}
         </div>
       </InnerLayout>
     </div>
   );
+  
+  
 }
 
 export default Weather;
