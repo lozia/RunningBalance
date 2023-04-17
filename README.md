@@ -7,7 +7,10 @@
 
 
 ## Description
-Our project is a balance calculator. Users can view income and expense details, total value and balance, and add or delete an income or expense. Each detail contains information such as time, category, description, etc., which can help users better manage income and expenditure records.
+Our project is a balance calculator that allows users to track their income and expenses. Users can view their income and expense details, total value, and current balance. They can also add or delete an income or expense record. Each detail includes information such as date, category, description, and more, providing users with a comprehensive overview of their finances.
+
+In addition to the financial tracking features, our project includes a dashboard that displays daily news and weather updates for user convenience. Furthermore, we have incorporated a pie chart visualization of expenses to help users easily identify areas where they may be overspending.
+
 ## User Story
 1. As a user, I want to be able to view my total income, expense and balance.
 2. As a user, I want to be able to view my latest income and expense records on the dashboard.
@@ -17,7 +20,7 @@ Our project is a balance calculator. Users can view income and expense details, 
 6. As a user, I want to be able to view the weather of my desired city.
 7. As a user, I want to be able to view the today's news.
 8. As a user, I want to be able to view the locations of my transaction.
-
+9. As a user, I would like to have a clear and easy-to-understand visualization of my spending patterns and distributions.
 ## Story Assignment 	
 
 ### Zhiqing Su
@@ -25,6 +28,7 @@ Google Map Api
 
 ### Xinyue Zhang
 Open Weather Map Api
+Visualization of expense
 
 ### Dongsheng Cheng	
 Calulator feature and interface
@@ -40,8 +44,9 @@ News Api
 - Latest transactions
 - Add and delete income/expense statement
 
-2. Milestone 2: Weather board
+2. Milestone 2: Weather board and Expense Visualization
 - View the weather of my desired city
+- Add the pie chart for expense distributions
 
 3. Milestone 3: News dashboard
 - View the today's news
