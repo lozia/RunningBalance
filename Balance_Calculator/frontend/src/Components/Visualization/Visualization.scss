@@ -12,11 +12,18 @@
     }
   
     svg {
-      width: 100%;
+      width: 400px; /* Adjust this value according to your desired width */
       height: 400px;
       background-color: #f0f2f5;
       border-radius: 10px;
       box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.1);
     }
+  }
+  
+  .visualization-charts {
+    padding-top: 2rem ;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: nowrap; /* Changed from wrap to nowrap */
   }
   
