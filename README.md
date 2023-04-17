@@ -24,17 +24,17 @@ In addition to the financial tracking features, our project includes a dashboard
 ## Story Assignment 	
 
 ### Zhiqing Su
-Google Map Api
+* Google Map Api
 
 ### Xinyue Zhang
-Open Weather Map Api
-Visualization of expense
+* Open Weather Map Api
+* Visualization of expense
 
 ### Dongsheng Cheng	
-Calulator feature and interface
+* Calulator feature and interface
 
 ### Zongyao Li
-News Api
+* News Api
 
 
 

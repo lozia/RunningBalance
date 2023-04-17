@@ -52,7 +52,8 @@ const Visualization = () => {
         .append("g")
         .attr("transform", `translate(${width / 2}, ${height / 2 + 20})`);
 
-      const d3Pie = pie().value((d) => d.value);
+      // const d3Pie = pie().value((d) => d.value);
+      const d3Pie = pie().value((d) => d.value).sort(null);
 
       const d3Arc = arc()
         .innerRadius(0)
@@ -67,16 +68,59 @@ const Visualization = () => {
         .attr("d", d3Arc)
         .attr("fill", (d, i) => colorScale(i));
 
-      g.selectAll("text")
+        g.selectAll("text")
         .data(d3Pie(visualizationData))
         .enter()
         .append("text")
-        .attr("transform", (d) => `translate(${d3Arc.centroid(d)})`)
-        .attr("dy", "0.35em")
-        .style("text-anchor", "middle")
-        .style("font-size", "12px")
-        .text((d) => `${d.data.label}: ${(d.data.value / d3Pie(visualizationData).reduce((acc, d) => acc + d.data.value, 0) * 100).toFixed(2)}%`);
-      };
+        .each(function (d) {
+          const centroid = d3Arc.centroid(d);
+          const xPos = centroid[0];
+          const yPos = centroid[1];
+          const text = select(this)
+            .attr("x", xPos)
+            .attr("y", yPos)
+            .attr("dy", "0.35em")
+            .style("text-anchor", "middle")
+            .style("font-size", "12px");
+    
+          const tspanY = d3Arc.centroid(d)[1] + 15;
+          text.append("tspan")
+            .attr("x", xPos)
+            .attr("y", tspanY)
+            .text(d.data.label)
+            .style("font-weight", "bold");
+    
+          text.append("tspan")
+            .attr("x", xPos)
+            .attr("y", tspanY + 15)
+            .text(`${((d.data.value / d3Pie(visualizationData).reduce((acc, d) => acc + d.data.value, 0)) * 100).toFixed(2)}%`);
+          });
+           // Add a legend
+      const legend = svg
+      .append("g")
+      .attr("transform", `translate(${width - margin}, ${height - margin})`);
+
+      const legendItemSize = 15;
+      const legendSpacing = 5;
+
+      visualizationData.forEach((data, i) => {
+        const legendItem = legend.append("g").attr("transform", `translate(0, ${i * (legendItemSize + legendSpacing)})`);
+
+        legendItem
+          .append("rect")
+          .attr("width", legendItemSize)
+          .attr("height", legendItemSize)
+          .style("fill", colorScale(i))
+          .style("stroke", colorScale(i));
+
+        legendItem
+          .append("text")
+          .attr("x", legendItemSize + legendSpacing)
+          .attr("y", legendItemSize - legendSpacing)
+          .text(data.label)
+          .style("font-size", "12px");
+        });
+    };
       createPieChart(svgIncomeRef, visualizationDataIncome, "Income by Category");
       createPieChart(svgExpenseRef, visualizationDataExpense, "Expense by Category");
   
