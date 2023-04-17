@@ -11,6 +11,8 @@ import News from './Components/News/News';
 import { useGlobalContext } from './context/globalContext';
 import Weather from './Components/Weather/Weather';
 import Visualization from './Components/Visualization/Visualization';
+import CurrencyCalculator from './Components/CurrencyCalculator/CurrencyCalculator';
+
 import Map from './Components/MapLocation/Map';
 import { useJsApiLoader } from '@react-google-maps/api';
 
@@ -30,6 +32,7 @@ function App() {
   }
 
   const displayData = () => {
+    console.log("Active:", active);
     switch(active){
       case 1:
         return <Dashboard />
@@ -45,6 +48,8 @@ function App() {
         return <Map />
       case 7:
         return <Visualization />;
+      case 8:
+        return <CurrencyCalculator />; 
       default: 
         return <Dashboard />
     }

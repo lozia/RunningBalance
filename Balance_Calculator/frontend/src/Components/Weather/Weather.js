@@ -13,31 +13,10 @@ function Weather() {
   } = useGlobalContext();
   const [selectedCity, setSelectedCity] = useState("Boston");
 
-//   useEffect(() => {
-//     getWeather(selectedCity).then(() => {
-//       if (weather.coord) {
-//         getWeatherForecast(weather.coord.lat, weather.coord.lon);
-//       }
-//     });
-//   }, [selectedCity, weather.coord, getWeather, getWeatherForecast]);
 useEffect(() => {
     getWeather(selectedCity);
     getWeatherForecast(selectedCity);
   }, [selectedCity, getWeather, getWeatherForecast]);
-  
-//   const displayWeatherData = () => {
-//     if (!weather || !weatherForecast) {
-//       return <p>Loading...</p>;
-//     }
-  
-//     return (
-//       <div>
-//         <h3>City: {weather.name}</h3>
-//         <h4>Temperature: {weather.main.temp}K</h4>
-//         {/* Add more data as needed */}
-//       </div>
-//     );
-//   };
 
   const handleCityChange = (e) => {
     setSelectedCity(e.target.value);

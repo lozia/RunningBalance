@@ -31,3 +31,5 @@ export const news = <i className="fa-solid fa-newspaper"></i>
 export const location = <i class="fa-solid fa-location-dot"></i>
 export const weather = <i className="fa-solid fa-cloud-sun"></i>;
 export const visualization = <i className="fa-solid fa-chart-pie"></i>;
+export const currencyCalculator = <i className="fa-solid fa-exchange-alt"></i>;
+

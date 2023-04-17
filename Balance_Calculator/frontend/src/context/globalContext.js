@@ -1,4 +1,5 @@
-import React, { useContext, useState, useCallback } from "react"
+// import React, { useContext, useState, useCallback } from "react"
+import React, {  useContext, useState, useCallback, useEffect } from "react";
 import axios from 'axios'
 
 
@@ -11,6 +12,9 @@ const WEATHER_API_KEY = "db0b09b486a19feb1860cfb78eebf35b";
 const WEATHER_URL = "https://api.openweathermap.org/data/2.5/weather?";
 const FORECAST_URL = "https://api.openweathermap.org/data/2.5/forecast?";
 
+const CURRENCY_CONVERSION_API_KEY = "2qNF66Ui388KZnxtPW0vcWGqDJ5ImPH9";
+const CURRENCY_CONVERSION_URL = `https://api.apilayer.com/exchangerates_data_api/latest?access_key=${CURRENCY_CONVERSION_API_KEY}`;
+
 
 
 const GlobalContext = React.createContext()
@@ -22,6 +26,8 @@ export const GlobalProvider = ({children}) => {
     const [news, setNews] = useState([])
     const [weather, setWeather] = useState({})
     const [weatherForecast, setWeatherForecast] = useState(null);
+    const [currencies, setCurrencies] = useState([]);
+    const [conversionRates, setConversionRates] = useState({});  
     const [error, setError] = useState(null)
 
     //calculate incomes
@@ -199,7 +205,28 @@ export const GlobalProvider = ({children}) => {
           console.log("Error fetching weather forecast data:", error);
         }
       }, []);
+
       
+      
+      useEffect(() => {
+        const fetchCurrenciesAndRates = async () => {
+          try {
+            const response = await axios.get("https://openexchangerates.org/api/currencies.json");
+            const currencyKeys = Object.keys(response.data);
+            setCurrencies(currencyKeys);
+    
+            const responseRates = await axios.get("https://openexchangerates.org/api/latest.json?app_id=eacbd5b69f33433b9ee64550fb744192");
+            setConversionRates(responseRates.data.rates);
+          } catch (error) {
+            console.error("Error fetching currencies and rates:", error);
+          }
+        };
+    
+        if (currencies.length === 0) {
+          fetchCurrenciesAndRates();
+        }
+      }, [currencies]);
+    
       
 
     return (
@@ -222,6 +249,9 @@ export const GlobalProvider = ({children}) => {
             getWeather,
             weatherForecast,
             getWeatherForecast,
+            currencies,
+            setCurrencies,
+            conversionRates,
             error,
             setError
         }}>
@@ -232,4 +262,4 @@ export const GlobalProvider = ({children}) => {
 
 export const useGlobalContext = () =>{
     return useContext(GlobalContext)
-}
+};

@@ -1,5 +1,5 @@
 
-import {dashboard, expenses, news, location, trend, weather, visualization} from '../utils/Icons'
+import {dashboard, expenses, news, location, trend, weather, visualization, currencyCalculator} from '../utils/Icons'
 
 
 export const menuItems = [
@@ -43,6 +43,12 @@ export const menuItems = [
         id: 7,
         title: 'VISUALIZATION',
         icon: visualization,
-        link: '/visualization',
-      },
+        link: '/dashboard',
+    },
+    {
+        id: 8,
+        title: 'CURRENCY',
+        icon: currencyCalculator,
+        link: '/dashboard', // Update this line
+    },
 ]
