@@ -56,7 +56,7 @@ const handleConversion = async () => {
   return (
     <div className="currency-calculator-main">
       <InnerLayout>
-        <h1>Currency Calculator</h1>
+        <h1>CURRENCY CALCULATOR</h1>
         <div className="currency-converter">
           <label>
             From:

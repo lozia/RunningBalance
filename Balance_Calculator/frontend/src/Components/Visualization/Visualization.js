@@ -128,7 +128,7 @@ const Visualization = () => {
     return (
       <div className="visualization-main">
         <InnerLayout>
-          <h1>Income and Expense Visualization</h1>
+          <h1>INCOME AND EXPENSE VISUALIZATION</h1>
           <div className="visualization-charts">
             <svg ref={svgIncomeRef}></svg>
             <svg ref={svgExpenseRef}></svg>
