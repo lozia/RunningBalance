@@ -39,6 +39,7 @@
     .menu-items{
         flex: 1;
         display: flex;
+        overflow: auto;
         flex-direction: column;
         li{
             font-size: 1.6rem;
