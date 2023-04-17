@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react"
+import React, { useContext, useState, useCallback } from "react"
 import axios from 'axios'
 
 
@@ -6,8 +6,10 @@ const BASE_URL = "http://localhost:5001/api/v1/";
 const NEWS_API_KEY = "apiKey=2d6ff00e0317456ea33408d024a2cc97"
 const NEWS_URL = `https://newsapi.org/v2/top-headlines?language=en&pageSize=5&category=business&${NEWS_API_KEY}`
 
-const WEATHER_API_KEY = 'db0b09b486a19feb1860cfb78eebf35b'; 
-const WEATHER_URL = 'https://api.openweathermap.org/data/2.5/weather?q=';
+// const WEATHER_API_KEY = "205924f4285a40d9a96233209231604";
+const OPEN_WEATHER_MAP_API_KEY = "db0b09b486a19feb1860cfb78eebf35b";
+const WEATHER_URL = "http://api.weatherapi.com/v1/current.json?key=";
+
 
 
 const GlobalContext = React.createContext()
@@ -161,32 +163,40 @@ export const GlobalProvider = ({children}) => {
         // }
     }
 
-    const getWeather = async (city) => {
-        try {
-          const response = await axios.get(`${WEATHER_URL}${city}&appid=${WEATHER_API_KEY}`);
-          setWeather(response.data);
-          console.log(`Fetch weather from ${WEATHER_URL} successfully`);
-        } catch (error) {
-          console.log(`Cannot fetch weather from ${WEATHER_URL}`);
-        }
-      };
-
-      const getWeatherForecast = async (lat, lon) => {
+    const getWeather = useCallback(async (city) => {
         try {
           const response = await fetch(
-            `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,alerts&appid=${WEATHER_API_KEY}`
+            `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${OPEN_WEATHER_MAP_API_KEY}`
           );
           const data = await response.json();
-          console.log("Weather Forecast Data:", data);
-          if (response.ok) {
-            setWeatherForecast(data);
+          if (data) {
+            setWeather(data);
+            console.log("Fetch weather from", response.url, "successfully");
           } else {
-            setError(data.message);
+            throw new Error("Failed to fetch weather data");
           }
         } catch (error) {
-          setError(error.message);
+          console.log("Error fetching weather data:", error);
         }
-      };
+      }, []);
+      
+      const getWeatherForecast = useCallback(async (city) => {
+        try {
+          const response = await fetch(
+            `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${OPEN_WEATHER_MAP_API_KEY}`
+          );
+          const data = await response.json();
+          if (data) {
+            setWeatherForecast(data);
+            console.log("Fetch weather forecast from", response.url, "successfully");
+          } else {
+            throw new Error("Failed to fetch weather forecast data");
+          }
+        } catch (error) {
+          console.log("Error fetching weather forecast data:", error);
+        }
+      }, []);
+      
       
 
     return (
