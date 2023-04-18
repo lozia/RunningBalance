@@ -70,6 +70,8 @@ export const GlobalProvider = ({children}) => {
     }
 
     const deleteIncome = async (id) => {    //when click delete on income dashboard
+        if(editing === id)
+            clearInput()
         await axios.delete(`${BASE_URL}delete-income/${id}`)
         getIncomes()
     }
@@ -123,6 +125,8 @@ export const GlobalProvider = ({children}) => {
     }
 
     const deleteExpense = async (id) => {        //when click delete on expense dashboard
+        if(editing === id)
+            clearInput()
         await axios.delete(`${BASE_URL}delete-expense/${id}`)
         getExpenses()
     }
