@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useGlobalContext } from "../../context/globalContext";
 import { select, pie, arc, scaleOrdinal, schemeCategory10 } from "d3";
 import { InnerLayout } from "../../styles/Layouts";
@@ -6,30 +6,90 @@ import "./Visualization.scss";
 
 const Visualization = () => {
   const { incomes, expenses } = useGlobalContext();
+  const [selectedDate, setSelectedDate] = useState("");
   const svgIncomeRef = useRef();
   const svgExpenseRef = useRef();
 
-  useEffect(() => {
-    if (!incomes || !expenses) return;
+  // const handleDateChange = (e) => {
+  //   setSelectedDate(e.target.value);
+  // };
 
-    const incomeData = incomes.reduce((acc, income) => {
+  const handleDateChange = (e) => {
+    const [year, month] = e.target.value.split("-");
+    setSelectedDate(`${year}-${month}`);
+  };
+
+  const resetDate = () => {
+    setSelectedDate("");
+  };
+
+  useEffect(() => {
+
+    if (!incomes || !expenses) return;
+  
+    // Filter incomes and expenses based on the selected date
+  //   const filteredIncomes = selectedDate
+  //   ? incomes.filter((income) => new Date(income.date).toISOString().split("T")[0] === selectedDate)
+  //   : incomes;
+  // const filteredExpenses = selectedDate
+  //   ? expenses.filter((expense) => new Date(expense.date).toISOString().split("T")[0] === selectedDate)
+  //   : expenses;
+  const filteredIncomes = selectedDate
+    ? incomes.filter(
+        (income) => income.date.slice(0, 7) === selectedDate
+      )
+    : incomes;
+  const filteredExpenses = selectedDate
+    ? expenses.filter(
+        (expense) => expense.date.slice(0, 7) === selectedDate
+      )
+    : expenses;
+
+    console.log('Selected Date:', selectedDate);
+    console.log('Filtered Incomes:', filteredIncomes);
+    console.log('Filtered Expenses:', filteredExpenses);
+  
+    const incomeData = filteredIncomes.reduce((acc, income) => {
       const category = income.category;
       const amount = income.amount;
       acc[category] = (acc[category] || 0) + amount;
       return acc;
     }, {});
-
-    const expenseData = expenses.reduce((acc, expense) => {
+  
+    const expenseData = filteredExpenses.reduce((acc, expense) => {
       const category = expense.category;
       const amount = expense.amount;
       acc[category] = (acc[category] || 0) + amount;
       return acc;
     }, {});
-
+  
     const visualizationDataIncome = Object.entries(incomeData).map(([label, value]) => ({ label, value }));
     const visualizationDataExpense = Object.entries(expenseData).map(([label, value]) => ({ label, value }));
 
+    const clearSvg = (svgRef) => {
+      const svg = select(svgRef.current);
+      svg.selectAll("*").remove();
+    };
+
     const createPieChart = (svgRef, visualizationData, chartTitle) => {
+      clearSvg(svgRef);
+
+      if (visualizationData.length === 0) {
+        const svg = select(svgRef.current)
+          .attr("width", 400)
+          .attr("height", 400);
+      
+        svg.append("text")
+          .attr("x", 200)
+          .attr("y", 200)
+          .attr("text-anchor", "middle")
+          .style("font-size", "16px")
+          .style("font-weight", "bold")
+          .text("No data available for the selected date");
+      
+        return;
+      }
+
       const width = 400;
       const height = 400;
       const margin = 50;
@@ -124,16 +184,25 @@ const Visualization = () => {
       createPieChart(svgIncomeRef, visualizationDataIncome, "Income by Category");
       createPieChart(svgExpenseRef, visualizationDataExpense, "Expense by Category");
   
-    }, [incomes, expenses]);
+    }, [incomes, expenses, selectedDate]);
     return (
+
       <div className="visualization-main">
-        <InnerLayout>
-          <h1>INCOME AND EXPENSE VISUALIZATION</h1>
-          <div className="visualization-charts">
-            <svg ref={svgIncomeRef}></svg>
-            <svg ref={svgExpenseRef}></svg>
-          </div>
-        </InnerLayout>
+       <InnerLayout>
+        <h1>INCOME AND EXPENSE VISUALIZATION</h1>
+        <label className="date-picker-label">
+          {/* Select Date:
+          <input type="date" value={selectedDate} onChange={handleDateChange} />
+          <button className="reset-date-btn" onClick={resetDate}>Reset</button> */}
+          Select Month:
+          <input type="month" value={selectedDate} onChange={handleDateChange} />
+          <button className="reset-date-btn" onClick={resetDate}>Reset</button>
+        </label>
+        <div className="visualization-charts">
+          <svg ref={svgIncomeRef}></svg>
+          <svg ref={svgExpenseRef}></svg>
+        </div>
+      </InnerLayout>
       </div>
     );
   };
