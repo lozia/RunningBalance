@@ -5,6 +5,7 @@ import { InnerLayout } from '../../styles/Layouts';
 import IncomeItem from '../IncomeItem/IncomeItem';
 import ExpenseForm from './ExpenseForm';
 
+// Set Expense Component
 function Expenses() {
     const {expenses, getExpenses, deleteExpense, totalExpenses, editItem} = useGlobalContext()
 

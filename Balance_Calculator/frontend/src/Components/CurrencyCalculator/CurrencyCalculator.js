@@ -5,6 +5,7 @@ import { useGlobalContext } from "../../context/globalContext";
 import "./CurrencyCalculator.scss";
 import axios from "axios";
 
+// Set Currency Calculator
 const CurrencyCalculator = () => {
   const { currencies, conversionRates } = useGlobalContext();
 //   const [fromCurrency, setFromCurrency] = useState("");
@@ -13,7 +14,7 @@ const CurrencyCalculator = () => {
   const [amount, setAmount] = useState(1);
   const [convertedAmount, setConvertedAmount] = useState(null);
 
-
+// API
 const handleConversion = async () => {
     const apiKey = "022d11269c3b11995d881143"; // Replace with your actual valid API key from exchangerate-api.com
     const apiUrl = `https://v6.exchangerate-api.com/v6/${apiKey}/latest/${fromCurrency}`;
@@ -37,6 +38,7 @@ const handleConversion = async () => {
     }
   };
 
+  // Currency Calculator Component
   return (
     <div className="currency-calculator-main">
       <InnerLayout>

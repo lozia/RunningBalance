@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { dateFormat } from '../../utils/dateFormat';
 import { calender, dollar } from '../../utils/Icons';
 
+// Income Items
 function IncomeItem({
     title,
     amount,

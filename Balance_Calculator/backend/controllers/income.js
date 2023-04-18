@@ -1,6 +1,8 @@
 const IncomeSchema= require("../models/IncomeModel")
 
+// Incomes
 
+// add a income
 exports.addIncome = async (req, res) => {
     const {title, amount, category, description, date, location}  = req.body
 

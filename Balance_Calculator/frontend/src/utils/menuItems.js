@@ -1,7 +1,7 @@
 
 import {dashboard, expenses, news, location, trend, weather, visualization, currencyCalculator} from '../utils/Icons'
 
-
+// Menuitems at Homepage
 export const menuItems = [
     {
         id: 1,

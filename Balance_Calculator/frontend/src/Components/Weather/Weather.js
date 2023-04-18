@@ -4,6 +4,7 @@ import { useGlobalContext } from "../../context/globalContext";
 import { InnerLayout } from "../../styles/Layouts";
 import "./Weather.scss";
 
+// Weather Component
 function Weather() {
   const {
     weather,
@@ -26,7 +27,7 @@ useEffect(() => {
     return <p>Loading...</p>;
   }
 
-
+  // Show weather
   console.log("Weather Forecast Prop:", weatherForecast);
   console.log("Weather Data:", weather);
   console.log("Weather Forecast Data:", weatherForecast);

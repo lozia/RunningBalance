@@ -3,7 +3,7 @@ const { addIncome, getIncomes, deleteIncome,editIncome } = require('../controlle
 
 const router = require('express').Router();
 
-
+// router category
 router.post('/add-income', addIncome)
     .get('/get-incomes', getIncomes)
     .delete('/delete-income/:id', deleteIncome)

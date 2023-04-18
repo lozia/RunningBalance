@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-
+// Income Schema
 const IncomeSchema = new mongoose.Schema({
     title: {
         type: String,

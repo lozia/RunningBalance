@@ -31,6 +31,7 @@ function App() {
       console.log("Google Map Api connection error")
   }
 
+  // Menu at MainLayout
   const displayData = () => {
     console.log("Active:", active);
     switch(active){
@@ -73,6 +74,7 @@ function App() {
   );
 }
 
+// Main page css
 const AppStyled = styled.div`
   height: 100vh;
   background-image: url(${props => props.bg});

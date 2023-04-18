@@ -1,6 +1,7 @@
 import './NewsItem.scss'
 import React from 'react'
 
+// News Items
 function NewsItem ({ title, source, publishedAt, url, descript}) {
 
     return <div className="news-item">

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+// Database Connect
 const db = async () => {
     try {
         mongoose.set('strictQuery', false)

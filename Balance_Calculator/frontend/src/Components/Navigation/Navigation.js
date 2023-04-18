@@ -17,6 +17,7 @@ function Navigation({active, setActive}) {
         clearInput()
     }
 
+    // Navigation bar(left) at Homepage
     return (
         <div className='nav-main'>
             <div className="user-con">

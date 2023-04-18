@@ -4,6 +4,7 @@ import { select, pie, arc, scaleOrdinal, schemeCategory10 } from "d3";
 import { InnerLayout } from "../../styles/Layouts";
 import "./Visualization.scss";
 
+// Income and Expense Data Visualization Component
 const Visualization = () => {
   const { incomes, expenses } = useGlobalContext();
   const [selectedDate, setSelectedDate] = useState("");
@@ -13,7 +14,7 @@ const Visualization = () => {
   // const handleDateChange = (e) => {
   //   setSelectedDate(e.target.value);
   // };
-
+  // Reshape data form
   const handleDateChange = (e) => {
     const [year, month] = e.target.value.split("-");
     setSelectedDate(`${year}-${month}`);

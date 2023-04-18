@@ -5,6 +5,7 @@ import { InnerLayout } from '../../styles/Layouts';
 import './News.scss'
 import NewsItem from '../NewsItem/NewsItem';
 
+// Set News Component
 function News() {
     const {news, getNews} = useGlobalContext()
 

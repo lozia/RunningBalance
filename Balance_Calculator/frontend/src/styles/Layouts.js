@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+// Set Main Layout and Inner Layout style css
 export const MainLayout = styled.div`
     padding: 2rem;
     height: 100%;

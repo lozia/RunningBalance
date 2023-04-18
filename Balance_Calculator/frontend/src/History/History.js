@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { useGlobalContext } from '../context/globalContext';
 
+// Transactions at Dashboard
 function History() {
     const {transactionHistory} = useGlobalContext()
 
@@ -13,13 +14,14 @@ function History() {
             {history.map((item) =>{
                 const {_id, title, amount, type} = item
                 return (
+                    // Check Income or Expense
                     <div key={_id} className="history-item">
                         <p style={{
                             color: type === 'expense' ? 'red' : 'var(--color-green)'
                         }}>
                             {title}
                         </p>
-
+                        
                         <p style={{
                             color: type === 'expense' ? 'red' : 'var(--color-green)'
                         }}>

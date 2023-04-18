@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
+// Set button style
 function Button({name, icon, onClick, bg, bPad, color, bRad}) {
     return (
         <ButtonStyled style={{
