@@ -12,8 +12,8 @@ const WEATHER_API_KEY = "db0b09b486a19feb1860cfb78eebf35b";
 const WEATHER_URL = "https://api.openweathermap.org/data/2.5/weather?";
 const FORECAST_URL = "https://api.openweathermap.org/data/2.5/forecast?";
 
-const CURRENCY_CONVERSION_API_KEY = "2qNF66Ui388KZnxtPW0vcWGqDJ5ImPH9";
-const CURRENCY_CONVERSION_URL = `https://api.apilayer.com/exchangerates_data_api/latest?access_key=${CURRENCY_CONVERSION_API_KEY}`;
+// const CURRENCY_CONVERSION_API_KEY = "2qNF66Ui388KZnxtPW0vcWGqDJ5ImPH9";
+// const CURRENCY_CONVERSION_URL = `https://api.apilayer.com/exchangerates_data_api/latest?access_key=${CURRENCY_CONVERSION_API_KEY}`;
 
 
 

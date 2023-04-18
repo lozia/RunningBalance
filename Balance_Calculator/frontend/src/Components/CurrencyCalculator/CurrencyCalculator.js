@@ -58,6 +58,7 @@ const handleConversion = async () => {
       <InnerLayout>
         <h1>CURRENCY CALCULATOR</h1>
         <div className="currency-converter">
+        <div className="from-to-container">
           <label>
             From:
             <select
@@ -96,6 +97,7 @@ const handleConversion = async () => {
               onChange={(e) => setAmount(e.target.value)}
             />
           </label>
+          </div>
           <button onClick={handleConversion}>Convert</button>
           {convertedAmount && (
             <p>
