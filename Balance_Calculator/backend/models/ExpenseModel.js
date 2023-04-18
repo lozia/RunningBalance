@@ -37,7 +37,6 @@ const ExpenseSchema = new mongoose.Schema({
     location: {
         type: String,
         required: true,
-        maxLength: 40,
         trim: true
     },
 }, {timestamps: true})
