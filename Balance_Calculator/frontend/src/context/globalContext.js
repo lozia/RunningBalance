@@ -4,8 +4,11 @@ import axios from 'axios'
 import { dateFormat } from '../utils/dateFormat';
 import { parseISO } from 'date-fns'; 
 
+// Balance Calculator API URI
 const BASE_URL = "http://localhost:5001/api/v1/";
+// News API auth key
 const NEWS_API_KEY = "apiKey=2d6ff00e0317456ea33408d024a2cc97"
+// News API URI
 const NEWS_URL = `https://newsapi.org/v2/top-headlines?language=en&pageSize=5&category=business&${NEWS_API_KEY}`
 
 // const WEATHER_API_KEY = "205924f4285a40d9a96233209231604";
@@ -24,7 +27,7 @@ export const GlobalProvider = ({children}) => {
 
     const [incomes, setIncomes] = useState([])        //income items
     const [expenses, setExpenses] = useState([])      //expense items
-    const [news, setNews] = useState([])              //new items
+    const [news, setNews] = useState([])              //news items
     const [weather, setWeather] = useState({})        //weather items
     const [weatherForecast, setWeatherForecast] = useState(null);
     const [currencies, setCurrencies] = useState([]);
@@ -160,70 +163,73 @@ export const GlobalProvider = ({children}) => {
     }
 
     const getNews = async () => {
-        setNews([{
-            source: {
-                id: null,
-                name: 'example.publisher'
-            },
-            title: 'Example Title1',
-            publishedAt: '2023.04.16',
-            url: 'http://example.com',
-            descript: "LoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLorem"
-        },{
-            source: {
-                id: null,
-                name: 'example.publisher'
-            },
-            title: 'Example Title2',
-            publishedAt: '2023.04.16',
-            url: 'http://example.com',
-            descript: "LoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLorem"
-        },{
-            source: {
-                id: null,
-                name: 'example.publisher'
-            },
-            title: 'Example Title3',
-            publishedAt: '2023.04.16',
-            url: 'http://example.com',
-            descript: "LoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLorem"
-        },{
-            source: {
-                id: null,
-                name: 'example.publisher'
-            },
-            title: 'Example Title4',
-            publishedAt: '2023.04.16',
-            url: 'http://example.com',
-            descript: "LoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLorem"
-        },{
-            source: {
-                id: null,
-                name: 'example.publisher'
-            },
-            title: 'Example Title5',
-            publishedAt: '2023.04.16',
-            url: 'http://example.com',
-            descript: "LoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLorem"
-        },{
-            source: {
-                id: null,
-                name: 'example.publisher'
-            },
-            title: 'Example Title6',
-            publishedAt: '2023.04.16',
-            url: 'http://example.com',
-            descript: "LoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLorem"
-        }])
-        // const res = await axios.get(`${NEWS_URL}`,{responseType:'json'})
-        // if (res.data.status === "ok") {
-        //     const articles = res.data.articles
-        //     setNews(articles)
-        //     console.log(`Fetch news from ${NEWS_URL} successfully`)
+        // Fed with prepaired source so that the news api doesn't lock access
+        // setNews([{
+        //     source: {
+        //         id: null,
+        //         name: 'example.publisher'
+        //     },
+        //     title: 'Example Title1',
+        //     publishedAt: '2023.04.16',
+        //     url: 'http://example.com',
+        //     descript: "LoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLorem"
+        // },{
+        //     source: {
+        //         id: null,
+        //         name: 'example.publisher'
+        //     },
+        //     title: 'Example Title2',
+        //     publishedAt: '2023.04.16',
+        //     url: 'http://example.com',
+        //     descript: "LoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLorem"
+        // },{
+        //     source: {
+        //         id: null,
+        //         name: 'example.publisher'
+        //     },
+        //     title: 'Example Title3',
+        //     publishedAt: '2023.04.16',
+        //     url: 'http://example.com',
+        //     descript: "LoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLorem"
+        // },{
+        //     source: {
+        //         id: null,
+        //         name: 'example.publisher'
+        //     },
+        //     title: 'Example Title4',
+        //     publishedAt: '2023.04.16',
+        //     url: 'http://example.com',
+        //     descript: "LoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLorem"
+        // },{
+        //     source: {
+        //         id: null,
+        //         name: 'example.publisher'
+        //     },
+        //     title: 'Example Title5',
+        //     publishedAt: '2023.04.16',
+        //     url: 'http://example.com',
+        //     descript: "LoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLorem"
+        // },{
+        //     source: {
+        //         id: null,
+        //         name: 'example.publisher'
+        //     },
+        //     title: 'Example Title6',
+        //     publishedAt: '2023.04.16',
+        //     url: 'http://example.com',
+        //     descript: "LoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLoremLorem"
+        // }])
+        // Use axios to get the source
+        const res = await axios.get(`${NEWS_URL}`,{responseType:'json'})
+        // Check the result status with NewsAPI
+        if (res.data.status === "ok") {
+            const articles = res.data.articles
+            setNews(articles)
+            console.log(`Fetch news from ${NEWS_URL} successfully`)
 
-        // } else {
-        //     console.log(`Cannot fetch news from ${NEWS_URL}`)
-        // }
+        } else {
+            console.log(`Cannot fetch news from ${NEWS_URL}`)
+        }
     }
 
     const getWeather = useCallback(async (city) => {

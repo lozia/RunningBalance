@@ -7,8 +7,10 @@ import NewsItem from '../NewsItem/NewsItem';
 
 // Set News Component
 function News() {
+    // get context from global context
     const {news, getNews} = useGlobalContext()
 
+    // Load data on hook
     useEffect(() =>{
         getNews()
     }, [])
