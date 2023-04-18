@@ -1,7 +1,8 @@
 // import React, { useContext, useState, useCallback } from "react"
-import React, {  useContext, useState, useCallback, useEffect } from "react";
+import React, {  useContext, useState, useCallback, useEffect, useRef } from "react";
 import axios from 'axios'
-
+import { dateFormat } from '../utils/dateFormat';
+import { parseISO } from 'date-fns'; 
 
 const BASE_URL = "http://localhost:5001/api/v1/";
 const NEWS_API_KEY = "apiKey=2d6ff00e0317456ea33408d024a2cc97"
@@ -21,14 +22,37 @@ const GlobalContext = React.createContext()
 
 export const GlobalProvider = ({children}) => {
 
-    const [incomes, setIncomes] = useState([])
-    const [expenses, setExpenses] = useState([])
-    const [news, setNews] = useState([])
-    const [weather, setWeather] = useState({})
+    const [incomes, setIncomes] = useState([])        //income items
+    const [expenses, setExpenses] = useState([])      //expense items
+    const [news, setNews] = useState([])              //new items
+    const [weather, setWeather] = useState({})        //weather items
     const [weatherForecast, setWeatherForecast] = useState(null);
     const [currencies, setCurrencies] = useState([]);
     const [conversionRates, setConversionRates] = useState({});  
-    const [error, setError] = useState(null)
+    const [error, setError] = useState(null)         //error staus
+    const [inputState, setInputState] = useState({   //input content of forms on income/expense dashborad
+        title: '',
+        amount: '',
+        date: '',
+        category: '',
+        description: '',
+        loaction: '',
+    })
+    const [editing, setEditing] = useState()   //if editing is empty, not editing. If not empty, editing = item id
+    const locationRef = useRef()
+
+    const clearInput = () =>{
+        setEditing('')
+        setInputState({   
+            title: '',
+            amount: '',
+            date: '',
+            category: '',
+            description: '',
+            loaction: '',
+        })
+        locationRef.current.value = ''
+    }
 
     //calculate incomes
     const addIncome = async (income) => {
@@ -39,18 +63,41 @@ export const GlobalProvider = ({children}) => {
         getIncomes()
     }
 
-    const getIncomes = async () => {
+    const getIncomes = async () => {        //get all incomes record from database
         const response = await axios.get(`${BASE_URL}get-incomes`)
         setIncomes(response.data)
         // console.log(response.data)
     }
 
-    const deleteIncome = async (id) => {
+    const deleteIncome = async (id) => {    //when click delete on income dashboard
         await axios.delete(`${BASE_URL}delete-income/${id}`)
         getIncomes()
     }
 
-    const totalIncome = () => {
+    const updateIncome = async () => {
+        await axios.patch(`${BASE_URL}update-income/${editing}`,inputState)
+        getIncomes()
+    }
+
+    const editItem = async (id,title,amount,date,category,description,location) => {  //when click edit on income dashboard
+        if(editing === ''){     //start editing
+            setInputState({
+                title: title,
+                amount: amount,
+                date: parseISO(date,1),
+                category: category,
+                description: description,
+                loaction: location,
+            })
+            locationRef.current.value = location
+            setEditing(id)
+        }
+        else{                     //cancel editing
+            clearInput()
+        }
+    }
+
+    const totalIncome = () => {             //calculate total income
         let totalIncome = 0;
         incomes.forEach((income) =>{
             totalIncome = totalIncome + income.amount
@@ -68,19 +115,24 @@ export const GlobalProvider = ({children}) => {
             })
         getExpenses()
     }
-
-    const getExpenses = async () => {
+ 
+    const getExpenses = async () => {          //get expenses record from database
         const response = await axios.get(`${BASE_URL}get-expenses`)
         setExpenses(response.data)
         // console.log(response.data)
     }
 
-    const deleteExpense = async (id) => {
+    const deleteExpense = async (id) => {        //when click delete on expense dashboard
         await axios.delete(`${BASE_URL}delete-expense/${id}`)
         getExpenses()
     }
 
-    const totalExpenses = () => {
+    const updateExpense = async () => {
+        await axios.patch(`${BASE_URL}update-expense/${editing}`,inputState)
+        getExpenses()
+    }
+
+    const totalExpenses = () => {               //calculate total expenses
         let totalIncome = 0;
         expenses.forEach((income) =>{
             totalIncome = totalIncome + income.amount
@@ -90,11 +142,11 @@ export const GlobalProvider = ({children}) => {
     }
 
 
-    const totalBalance = () => {
+    const totalBalance = () => {                //calculate balance
         return totalIncome() - totalExpenses()
     }
 
-    const transactionHistory = () => {
+    const transactionHistory = () => {          //return 3 latest transactions
         const history = [...incomes, ...expenses]
         history.sort((a, b) => {
             return new Date(b.createdAt) - new Date(a.createdAt)
@@ -253,7 +305,15 @@ export const GlobalProvider = ({children}) => {
             setCurrencies,
             conversionRates,
             error,
-            setError
+            setError,
+            inputState,
+            setInputState,
+            locationRef,
+            editItem,
+            clearInput,
+            editing,
+            updateIncome,
+            updateExpense
         }}>
             {children}
         </GlobalContext.Provider>

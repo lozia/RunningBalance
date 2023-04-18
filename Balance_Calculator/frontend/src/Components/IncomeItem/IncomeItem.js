@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { dateFormat } from '../../utils/dateFormat';
-import { bitcoin, book, calender, card, circle, clothing, comment, dollar, food, freelance, medical, money, piggy, stocks, takeaway, trash, tv, users, yt } from '../../utils/Icons';
+import { pen, bitcoin, book, calender, card, circle, clothing, comment, dollar, food, freelance, medical, money, piggy, stocks, takeaway, trash, tv, users, yt } from '../../utils/Icons';
 import Button from '../Button/Button';
+import { useGlobalContext } from '../../context/globalContext';
 
 function IncomeItem({
     id,
@@ -11,11 +12,14 @@ function IncomeItem({
     date,
     category,
     description,
+    location,
     deleteItem,
+    editItem,
     indicatorColor,
     type
 }) {
 
+    //category icon for incomes
     const categoryIcon = () =>{
         switch(category) {
             case 'salary':
@@ -39,6 +43,7 @@ function IncomeItem({
         }
     }
 
+    //category icon for expenses
     const expenseCatIcon = () => {
         switch (category) {
             case 'education':
@@ -62,7 +67,12 @@ function IncomeItem({
         }
     }
 
+
+    const {editing} = useGlobalContext()
+
+
     // console.log('type', type)
+
 
     return (
         <IncomeItemStyled indicator={indicatorColor}>
@@ -70,7 +80,20 @@ function IncomeItem({
                 {type === 'expense' ? expenseCatIcon() : categoryIcon()}
             </div>
             <div className="content">
-                <h5>{title}</h5>
+                <div className="firstline">
+                    <h5>{title}</h5>
+                    <p class={editing===id?"visible":"invisible"}>Editing...</p>
+                    <Button 
+                        icon={pen}
+                        bPad={'0.2rem'}
+                        bRad={'30%'}
+                        bg={'var(--primary-color'}
+                        color={'#fff'}
+                        iColor={'#fff'}
+                        hColor={'var(--color-green)'}
+                        onClick={() => editItem(id,title,amount,date,category,description,location)}
+                    />
+                </div>
                 <div className="inner-content">
                     <div className="text">
                         <p>{dollar} {amount}</p>
@@ -121,6 +144,21 @@ const IncomeItemStyled = styled.div`
         border: 2px solid #FFFFFF;
         i{
             font-size: 2.6rem;
+        }
+    }
+
+    .firstline {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        Button {
+            margin-right:10px;
+        }
+        .visible{
+            visibility: visible;
+        }
+        .invisible{
+            visibility: hidden;
         }
     }
 

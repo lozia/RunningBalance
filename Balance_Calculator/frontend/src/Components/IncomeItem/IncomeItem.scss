@@ -46,6 +46,13 @@
             }
         }
 
+        .firstline {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            visibility: visible;
+        }
+
         .inner-content{
             display: flex;
             justify-content: space-between;

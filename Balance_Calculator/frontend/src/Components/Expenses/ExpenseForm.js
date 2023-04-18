@@ -10,38 +10,28 @@ import {Autocomplete } from '@react-google-maps/api';
 
 
 function ExpenseForm() {
-    const {addExpense, error, setError} = useGlobalContext()
-    const [inputState, setInputState] = useState({
-        title: '',
-        amount: '',
-        date: '',
-        category: '',
-        description: '',
-        loaction: '',
-    })
+    const {addExpense, error, setError, inputState, setInputState, locationRef, editing, clearInput, updateExpense} = useGlobalContext()
 
     const { title, amount, date, category,description,location } = inputState;
 
-    const locationRef = useRef()
 
+    //when input changed
     const handleInput = name => e => {
         setInputState({...inputState, [name]: e.target.value})
         setError('')
     }
 
+    //when add button is clicked
     const handleSubmit = e => {
         e.preventDefault()
-        addExpense(inputState)
-        setInputState({
-            title: '',
-            amount: '',
-            date: '',
-            category: '',
-            description: '',
-        })
-        locationRef.current.value = ''
+        if(editing === '')           //if editing is empty, add a new expense
+            addExpense(inputState)
+        else                      //if editing is empty, update this expense
+            updateExpense()
+        clearInput()          //clear input field
     }
 
+    //when location input is changed
     const handleAutoComplete = async () =>{
         setInputState({...inputState, ['location']: locationRef.current.value})
     }
@@ -91,7 +81,7 @@ function ExpenseForm() {
                 </select>
             </div>
             <div className="input-control">
-                <textarea name="description" value={description} placeholder='Add a description for this spend' id="description" cols="30" rows="2" onChange={handleInput('description')}></textarea>
+                <textarea name="description" required value={description} placeholder='Add a description for this spend' id="description" cols="30" rows="2" onChange={handleInput('description')}></textarea>
             </div>
             <div className="input-control">
                 <Autocomplete onPlaceChanged={handleAutoComplete}>

@@ -2,11 +2,21 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import avatar from '../../img/icon.svg'
 import { menuItems } from '../../utils/menuItems'
+import { useGlobalContext } from '../../context/globalContext';
 import './Navigation.scss'
 
 
 function Navigation({active, setActive}) {
     
+
+    const {clearInput} = useGlobalContext()
+    
+    //when change window, clear the input field, and set new window into active
+    const itemClicked = (id) => {
+        setActive(id)
+        clearInput()
+    }
+
     return (
         <div className='nav-main'>
             <div className="user-con">
@@ -20,7 +30,7 @@ function Navigation({active, setActive}) {
                 {menuItems.map((item) => {
                     return <li
                         key={item.id}
-                        onClick={() => setActive(item.id)}
+                        onClick={() => itemClicked(item.id)}
                         className={active === item.id ? 'active': ''}
                     >
                         {item.icon}

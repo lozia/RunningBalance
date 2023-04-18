@@ -30,6 +30,7 @@ exports.addIncome = async (req, res) => {
     console.log(income)
 }
 
+//get all income records from database
 exports.getIncomes = async (req, res) =>{
     try {
         const incomes = await IncomeSchema.find().sort({createdAt: -1})
@@ -39,6 +40,7 @@ exports.getIncomes = async (req, res) =>{
     }
 }
 
+//delete income record by id
 exports.deleteIncome = async (req, res) =>{
     const {id} = req.params;
     IncomeSchema.findByIdAndDelete(id)
@@ -48,4 +50,23 @@ exports.deleteIncome = async (req, res) =>{
         .catch((err) =>{
             res.status(500).json({message: 'Server Error'})
         })
+}
+
+//update income record by id
+exports.editIncome = async (req, res) =>{
+    const {title, amount, category, description, date, location}  = req.body
+    const {id} = req.params;
+    try {
+        //validations
+        if(!title || !category || !description){
+            return res.status(400).json({message: 'All fields are required!'})
+        }
+        if(amount <= 0 || !amount === 'number'){
+            return res.status(400).json({message: 'Amount must be a positive number!'})
+        }
+        await IncomeSchema.findByIdAndUpdate(id,req.body)
+        res.status(200).json({message: 'Expense Added'})
+    } catch (error) {
+        res.status(500).json({message: 'Server Error'})
+    }
 }

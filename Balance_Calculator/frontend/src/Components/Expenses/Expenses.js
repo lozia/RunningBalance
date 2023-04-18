@@ -6,7 +6,7 @@ import IncomeItem from '../IncomeItem/IncomeItem';
 import ExpenseForm from './ExpenseForm';
 
 function Expenses() {
-    const {expenses, getExpenses, deleteExpense, totalExpenses} = useGlobalContext()
+    const {expenses, getExpenses, deleteExpense, totalExpenses, editItem} = useGlobalContext()
 
     useEffect(() =>{
         getExpenses()
@@ -22,7 +22,7 @@ function Expenses() {
                     </div>
                     <div className="incomes">
                         {expenses.map((income) => {
-                            const {_id, title, amount, date, category, description, type} = income;
+                            const {_id, title, amount, date, category, description, type,location} = income;
                             return <IncomeItem
                                 key={_id}
                                 id={_id} 
@@ -31,9 +31,11 @@ function Expenses() {
                                 amount={amount} 
                                 date={date} 
                                 type={type}
+                                location={location}
                                 category={category} 
                                 indicatorColor="var(--color-green)"
                                 deleteItem={deleteExpense}
+                                editItem={editItem}
                             />
                         })}
                     </div>

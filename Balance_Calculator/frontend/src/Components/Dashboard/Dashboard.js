@@ -5,7 +5,7 @@ import History from '../../History/History';
 import { InnerLayout } from '../../styles/Layouts';
 import { dollar } from '../../utils/Icons';
 
-
+// dashboard page, including current balance, total income/expanse, latest transaction, and income/expense range
 function Dashboard() {
     const {totalExpenses,incomes, expenses, totalIncome, totalBalance, getIncomes, getExpenses } = useGlobalContext()
 

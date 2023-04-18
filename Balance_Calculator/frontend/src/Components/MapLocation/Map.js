@@ -10,10 +10,10 @@ import IncomeItem from './IncomeItem';
 function Map() {
     const {incomes, expenses, getIncomes, getExpenses } = useGlobalContext()
 
-    const [position, setPosition] = useState({lat: 42.3600825, lng: -71.0588801})
-    const [data, setData] = useState(incomes)
-    const [info, setInfo] = useState('')
-    const [checked ,setChecked] = useState([true,false])
+    const [position, setPosition] = useState({lat: 42.3600825, lng: -71.0588801}) //marker and map center position
+    const [data, setData] = useState(incomes)              //selected transaction
+    const [info, setInfo] = useState('')                   //marker details
+    const [checked ,setChecked] = useState([true,false])   //income or expense list
 
     useEffect(() => {
         getIncomes()
@@ -32,10 +32,12 @@ function Map() {
         setInfo(info)
     }, [])
 
+    //Geocode is used to tranfer address name to longitude and latitude
     Geocode.setApiKey("AIzaSyB_27lWXeJoFzJPhiUVMGSNaNMXke2Mpjo");
     Geocode.setLanguage("en");
     Geocode.setLocationType("GEOMETRIC_CENTER");
 
+    //when clicked item, set info
     const itemClicked = (params) => {
         const [ title, amount, date, category, description, type, location] = params
         Geocode.fromAddress(location).then((response) => {setPosition(response.results[0].geometry.location)})
@@ -50,6 +52,7 @@ function Map() {
         setInfo(info)
     }
 
+    //when click radio, change list
     const radioClicked = (e) => {
         if(e.target.value === 'income'){
             setData(incomes)
@@ -63,11 +66,12 @@ function Map() {
 
 
     const[map, setMap] = useState(/** @type google.maps.Map */ (null));
+    
+    //set info window to show details
     const [isOpen, setOpen] = useState(false)
     const handleToggleOpen = () => {
         setOpen(true)
     }
-
     const handleToggleClose = () => {
         setOpen(false)
     }
@@ -85,7 +89,6 @@ function Map() {
                         const {_id, title, amount, date, category, description, type, location} = income;
                         return <IncomeItem
                             key={_id}
-                            id={_id} 
                             title={title} 
                             description={description} 
                             amount={amount} 
